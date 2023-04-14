@@ -39,6 +39,8 @@ export const contractAddress = {
     ERC20: process.env.NEXT_PUBLIC_ERC20!,
 
     COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
+    CONTRACT_CALCULATOR_REWARD: "0xed7eeAeFe7f97152EF413809e47404FD58e4E3d7",
+
     multicall: "0x63842f90D8f1BcCAe36eb67C91270e1Df09613a8",
   },
 
