@@ -21,45 +21,46 @@ export const contractAddress = {
     COIN_EX_VALIDATOR: "0xebeDB77b225C461f4823dA085F087Dc591302937",
     multicall: "0x409525b2412c472fe5AAA1bFf2C4E2DA62677946",
   },
-  // 52: {
-  //   stakingTokenV1: process.env.NEXT_PUBLIC_STAKINGV1!,
-  //   stakingTokenV2: process.env.NEXT_PUBLIC_STAKINGV2!,
-  //   stakingTokenV3: process.env.NEXT_PUBLIC_STAKINGV3!,
-
-  //   lpToken: process.env.NEXT_PUBLIC_LP_TOKEN!,
-  //   stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
-
-  //   rewardContractStakeValidator:
-  //     process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!,
-  //   stakingCetToValidator:
-  //     process.env.NEXT_PUBLIC_REWARD_STAKE_CET_TO_VALIDATOR!,
-  //   validator: process.env.NEXT_PUBLIC_VALIDATOR!,
-
-  //   ERC20: process.env.NEXT_PUBLIC_ERC20!,
-
-  //   COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
-  //   multicall: "0x63842f90D8f1BcCAe36eb67C91270e1Df09613a8",
-  // },
-
   52: {
-    stakingTokenV1: "0x3Fd44612fA536175cD68143dcCb66c3449C9188A",
-    stakingTokenV2: "0x44e0ef7A218B9e57d4e8788Daa3c02f8b734ffEC",
-    stakingTokenV3: "0xB31CD9c0412CdeaD39A30A039cA78dC866a7E6C8",
+    stakingTokenV1: process.env.NEXT_PUBLIC_STAKINGV1!,
+    stakingTokenV2: process.env.NEXT_PUBLIC_STAKINGV2!,
+    stakingTokenV3: process.env.NEXT_PUBLIC_STAKINGV3!,
 
-    lpToken: "0xCb4ae3b77e286311Ab86c422E38D22E053ddab04",
-    stakingLpTokenV1: "0x9040B7798d45c83e92c9b9594Bb30af14eBd877A",
+    lpToken: process.env.NEXT_PUBLIC_LP_TOKEN!,
+    stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
+
     lotteryV1: "0x8C7d481D4980F7734220080c17458De6Eef4E344",
+    rewardContractStakeValidator:
+      process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!,
+    stakingCetToValidator:
+      process.env.NEXT_PUBLIC_REWARD_STAKE_CET_TO_VALIDATOR!,
+    validator: process.env.NEXT_PUBLIC_VALIDATOR!,
 
-    rewardContractStakeValidator: "0x372be3544D6f11A34c0214189223F08a7fbC8f11",
+    ERC20: process.env.NEXT_PUBLIC_ERC20!,
 
-    stakingCetToValidator: "0x0000000000000000000000000000000000001000",
-
-    ERC20: "0x614EA1546f54192c713d2fcC516E4a74cF282fA0",
-
-    COIN_EX_VALIDATOR: "0xebeDB77b225C461f4823dA085F087Dc591302937",
-    CONTRACT_CALCULATOR_REWARD: "0xed7eeAeFe7f97152EF413809e47404FD58e4E3d7",
+    COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
     multicall: "0x63842f90D8f1BcCAe36eb67C91270e1Df09613a8",
   },
+
+  // 52: {
+  //   stakingTokenV1: "0x3Fd44612fA536175cD68143dcCb66c3449C9188A",
+  //   stakingTokenV2: "0x44e0ef7A218B9e57d4e8788Daa3c02f8b734ffEC",
+  //   stakingTokenV3: "0xB31CD9c0412CdeaD39A30A039cA78dC866a7E6C8",
+
+  //   lpToken: "0xCb4ae3b77e286311Ab86c422E38D22E053ddab04",
+  //   stakingLpTokenV1: "0x9040B7798d45c83e92c9b9594Bb30af14eBd877A",
+  //   lotteryV1: "0x8C7d481D4980F7734220080c17458De6Eef4E344",
+
+  //   rewardContractStakeValidator: "0x372be3544D6f11A34c0214189223F08a7fbC8f11",
+
+  //   stakingCetToValidator: "0x0000000000000000000000000000000000001000",
+
+  //   ERC20: "0x614EA1546f54192c713d2fcC516E4a74cF282fA0",
+
+  //   COIN_EX_VALIDATOR: "0xebeDB77b225C461f4823dA085F087Dc591302937",
+  //   CONTRACT_CALCULATOR_REWARD: "0xed7eeAeFe7f97152EF413809e47404FD58e4E3d7",
+  //   multicall: "0x63842f90D8f1BcCAe36eb67C91270e1Df09613a8",
+  // },
 }[CHAIN_ID] as any;
 
 export const MATH_POW_18_ZERO = "000000000000000000";
