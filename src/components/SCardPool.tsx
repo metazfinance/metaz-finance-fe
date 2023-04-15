@@ -47,7 +47,7 @@ export const WrapperSCardPool = ({ pool }: { pool: IPool }) => {
             <Box>
               <Image
                 src="/assets/image/logo.png"
-                alt="CAKE"
+                alt="METAZ"
                 width={50}
                 height={50}
               />

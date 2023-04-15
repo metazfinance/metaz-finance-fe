@@ -115,7 +115,7 @@ export const ModalStakeToken = ({
               >
                 <Image
                   src="/assets/image/logo.png"
-                  alt="MATAZ"
+                alt="METAZ"
                   width={26}
                   height={26}
                 />
@@ -130,7 +130,7 @@ export const ModalStakeToken = ({
                     <InputLeftElement pointerEvents="none">
                       <Image
                         src="/assets/image/logo.png"
-                        alt="MATAZ"
+                      alt="METAZ"
                         width={26}
                         height={26}
                       />
@@ -244,7 +244,7 @@ export const ModalUnStakeToken = ({
               >
                 <Image
                   src="/assets/image/logo.png"
-                  alt="MATAZ"
+                alt="METAZ"
                   width={26}
                   height={26}
                 />
@@ -259,7 +259,7 @@ export const ModalUnStakeToken = ({
                     <InputLeftElement pointerEvents="none">
                       <Image
                         src="/assets/image/logo.png"
-                        alt="MATAZ"
+                      alt="METAZ"
                         width={26}
                         height={26}
                       />

@@ -93,7 +93,7 @@ const SCardValidatorPool = ({ pool }: { pool: IPoolValidatorStake }) => {
             <Box>
               <Image
                 src="/assets/image/cet.png"
-                alt="CAKE"
+                alt="METAZ"
                 width={50}
                 height={50}
               />

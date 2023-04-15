@@ -1,27 +1,19 @@
-import { ReactNode } from "react";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Center,
   Flex,
-  Avatar,
   HStack,
   IconButton,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useDisclosure,
-  useColorModeValue,
   Stack,
-  Center,
   Text,
+  useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import SConnectButton from "./SConnectButton";
-import Link from "next/link";
 
 const Links = [
   {
@@ -88,6 +80,10 @@ export default function SNavbar() {
                   </Link>
                 );
               })}
+
+              <Link href={"https://docs.metaz.finance/"} target="_blank">
+                <Text fontSize={14}>Docs</Text>
+              </Link>
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
