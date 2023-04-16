@@ -12,7 +12,7 @@ export default function StakeNative() {
     >
       <Box>
         <Text textAlign={"center"} fontSize={"3xl"} pb={2} fontWeight="bold">
-          Stake METAZ to validator
+          Stake CET to validator
         </Text>
         <WrapperCardValidatorPool />
       </Box>
