@@ -31,8 +31,8 @@ const TxTab = (props: TxTabProps) => {
           <Tr>
             <Th>Tx Hash</Th>
             <Th>Delegator Address</Th>
-            <Th>Amount ( METAZ )</Th>
-            <Th>REWARD ESTIMATION</Th>
+            <Th>Amount (CET)</Th>
+            <Th>TODAY REWARD ESTIMATION</Th>
           </Tr>
         </Thead>
         <Tbody>
