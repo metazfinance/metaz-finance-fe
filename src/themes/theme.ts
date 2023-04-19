@@ -31,6 +31,9 @@ const colors = {
     900: "#24cccd",
     800: "#e8f9fa",
   },
+  orange: {
+    900: "linear-gradient(90deg,#fafaea,#fbffdf)",
+  },
 };
 
 const config = {
