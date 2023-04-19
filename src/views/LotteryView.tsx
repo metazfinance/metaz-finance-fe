@@ -26,7 +26,7 @@ import Countdown, { zeroPad } from "react-countdown";
 import { AppModalBuyTicket } from "@/components/AppModal/AppModalBuyTicket";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
-export default function Lottery() {
+export default function LotteryView() {
   const colors: BallColor[] = [
     "pink",
     "lilac",
