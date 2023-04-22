@@ -1,6 +1,6 @@
 import { getBalanceLocalString } from "@/utils/ultities";
-import { SYMBOL } from "@/web3Config/contract";
-import { useBalanceErc20 } from "@/web3Hook/useErc20";
+import { SYMBOL, contractAddress } from "@/web3Config/contract";
+import { useApproveERC20, useBalanceErc20 } from "@/web3Hook/useErc20";
 import {
   Badge,
   Box,
@@ -22,12 +22,23 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import AppButton from "../AppButton";
+import { useActionLottery } from "@/web3Hook/useLottery";
 
 export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
   const { isFetching, balance } = useBalanceErc20();
+
+  const { buyTickets } = useActionLottery();
+  const { isApprove, isApproving, approve } = useApproveERC20(
+    contractAddress.lotteryV1,
+    contractAddress.ERC20_LOTTERY
+  );
+
+  const handleApprove = useCallback(async () => {
+    await approve();
+  }, [isApprove]);
 
   const toast = useToast();
   const {
@@ -42,7 +53,20 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
     // resolver: {},
   });
 
-  const onSubmit = async (formValues: { amount: number }) => {};
+  const onSubmit = async (formValues: { amount: number }) => {
+    const ticketNumbers = [123, 456, 789];
+    try {
+      await buyTickets.mutateAsync(ticketNumbers);
+      toast({
+        title: "Success",
+        description: "Buy ticket success",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      onClose();
+    } catch (error) {}
+  };
 
   const hasEnoughFund = useMemo(() => {
     return +balance > 0;
@@ -173,14 +197,28 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
           </ModalBody>
 
           <ModalFooter>
-            <AppButton
-              mr={3}
-              isDisabled={isDisable || !hasEnoughFund}
-              isLoading={isDisable}
-              type="submit"
-            >
-              Buy tickes
-            </AppButton>
+            <Box>
+              {isApprove ? (
+                <AppButton
+                  mr={3}
+                  // isDisabled={isDisable || !hasEnoughFund}
+                  // isLoading={isDisable}
+                  type="submit"
+                >
+                  Buy tickes
+                </AppButton>
+              ) : (
+                <AppButton
+                  w={"100%"}
+                  mr={3}
+                  disabled={isApproving}
+                  isLoading={isApproving}
+                  onClick={handleApprove}
+                >
+                  Approve
+                </AppButton>
+              )}
+            </Box>
           </ModalFooter>
         </ModalContent>
       </Box>

@@ -36,3 +36,11 @@ export const getBalanceLocalString = (
   if (!amount) return 0;
   return beautifulNumber(+ethers.utils.formatUnits(amount));
 };
+
+export const randomTicketNumbers = (amounts) => {
+  const arr = [];
+  for (let i = 0; i < amounts; i++) {
+    arr.push(Math.floor(Math.random() * 100000));
+  }
+  return arr;
+};

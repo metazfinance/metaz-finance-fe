@@ -1,5 +1,7 @@
-import LotteryView from "@/views/LotteryView";
+import LotteryView from "@/views/LotteryView/index";
 
 export default function Lottery() {
-  return <LotteryView />
+    // eslint-disable-next-line no-console
+  console.log('Lottery LOG 01');
+  return <LotteryView />;
 }
