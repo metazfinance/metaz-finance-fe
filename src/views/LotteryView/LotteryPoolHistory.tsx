@@ -1,5 +1,6 @@
 import { BallColor, BallWithNumber } from "@/components/BallSVG/Balls";
-import { parseRetrievedNumber } from "@/utils/helpers";
+import { formatCurrency } from "@/utils/ultities";
+import { BLOCK_PER_SECONDS } from "@/web3Config/contract";
 import {
   useGetCurrentLotteryInfo,
   useGetLotteryInfo,
@@ -22,27 +23,24 @@ import {
   Th,
   Thead,
   Tr,
-  useDisclosure,
 } from "@chakra-ui/react";
 import dayjs from "dayjs";
-import { random } from "lodash-es";
 import { useEffect, useMemo, useState } from "react";
+import AppCheckClaimable from "./components/AppCheckClaimable";
 
 export default function LotteryPoolHistory() {
   const provider = useGetProvider();
   const { data } = useLottery();
   const { data: _lastLottery } = useGetCurrentLotteryInfo();
-  const { getLotteryInfo } = useGetLotteryInfo();
+  const { getLotteryInfo, getRewardAccount } = useGetLotteryInfo();
 
   const [lotteryInfo, setLotteryInfo] = useState<any>();
   const [currentId, setCurrentId] = useState(+data?.currentLotteryId);
-  const [timeStart, setTimeStart] = useState();
-  // const [timeBuy, setTimeBuy] = useState();
-  const [timeEnd, setTimeEnd] = useState();
-
+  const [timeEnd, setTimeEnd] = useState(0);
   const [isLoading, setLoading] = useState(false);
 
   useMemo(() => {
+    if (!data?.currentLotteryId) return;
     setCurrentId(+data?.currentLotteryId);
   }, [data?.currentLotteryId]);
 
@@ -50,28 +48,22 @@ export default function LotteryPoolHistory() {
     setLoading(true);
 
     const res = await getLotteryInfo(currentId);
-    //   enum Status {
-    //     Pending,
-    //     Open,
-    //     Claimable
-    // }
-
     setLotteryInfo({
       currentLotteryId: currentId,
       status: +res.status,
       blockEnd: +res.blockEnd,
       blockStart: +res.blockStart,
-      totalReward: +res.totalReward,
+      totalReward: +res.totalReward / 1e18,
       finalNumber: +res.finalNumber,
     });
 
     setLoading(false);
-
     if (!res?.blockStart) return;
-    const block = await provider.getBlock(+res.blockStart);
-    const blockTimeEnd = await provider.getBlock(+res.blockEnd);
-    setTimeStart(block?.timestamp);
-    setTimeEnd(blockTimeEnd?.timestamp);
+    const block = +res.blockEnd - +res.blockStart;
+    const time = block * BLOCK_PER_SECONDS;
+    const timeCountDown =
+      (await provider.getBlock(+res.blockStart)).timestamp + time;
+    setTimeEnd(+timeCountDown);
   };
 
   useEffect(() => {
@@ -88,9 +80,6 @@ export default function LotteryPoolHistory() {
     if (currentId === +data?.currentLotteryId) return;
     setCurrentId(currentId + 1);
   };
-
-  // eslint-disable-next-line no-console
-  console.log(isLoading, "isLoading");
 
   return (
     <section>
@@ -127,12 +116,22 @@ export default function LotteryPoolHistory() {
                 <Box>
                   <Flex gap={5} alignItems={"center"}>
                     <Text>Round</Text>
-                    <Badge>{lotteryInfo?.currentLotteryId}</Badge>
+                    <Skeleton isLoaded={!isLoading}>
+                      <Badge>{lotteryInfo?.currentLotteryId}</Badge>
+                    </Skeleton>
                   </Flex>
                   <Text textAlign={"left"}>
                     {dayjs.unix(timeEnd).format("MMMM DD, YYYY HH:mm:ss")}
                   </Text>
                 </Box>
+
+                <Skeleton isLoaded={!isLoading || !lotteryInfo}>
+                  {lotteryInfo && lotteryInfo?.status != 1 && (
+                    <AppCheckClaimable
+                      currentId={lotteryInfo.currentLotteryId}
+                    />
+                  )}
+                </Skeleton>
                 <Box>
                   <Flex gap={3}>
                     <Button
@@ -145,7 +144,7 @@ export default function LotteryPoolHistory() {
                     <Button
                       onClick={handleNext}
                       size={"sm"}
-                      isDisabled={_lastLottery.currentLotteryId == +currentId}
+                      // isDisabled={_lastLottery.currentLotteryId == +currentId}
                     >
                       <ArrowForwardIcon />
                     </Button>
@@ -189,7 +188,7 @@ export default function LotteryPoolHistory() {
                         </Th>
                         <Th>
                           <Text fontSize={"xl"} color="#F8BE9D">
-                            $ {lotteryInfo?.totalReward}
+                            {`$ ${formatCurrency(+lotteryInfo?.totalReward)}`}
                           </Text>
                         </Th>
                         <Th textAlign={"left"} color="#F8BE9D">
@@ -271,26 +270,12 @@ export const BallResult = ({ finalNumber }) => {
     "yellow",
   ];
 
-  const [rotationValues, setRotationValues] = useState([]);
-  const reversedNumber = parseRetrievedNumber(finalNumber || "0000000");
-  const numAsArray = reversedNumber.split("");
-
-  useEffect(() => {
-    if (numAsArray && rotationValues.length === 0) {
-      setRotationValues(numAsArray.map(() => random(-30, 30)));
-    }
-  }, [numAsArray, rotationValues]);
-
+  if (!finalNumber) return null;
   return (
     <Flex justifyContent="space-between">
-      {numAsArray.map((num, index) => {
+      {(finalNumber + "")?.split("").map((num, index) => {
         return (
-          <BallWithNumber
-            key={index}
-            rotationTransform={rotationValues[index]}
-            color={colors[index]}
-            number={num}
-          />
+          <BallWithNumber key={index} color={colors[index]} number={num} />
         );
       })}
     </Flex>

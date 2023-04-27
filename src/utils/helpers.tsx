@@ -1,5 +1,6 @@
 export const parseRetrievedNumber = (number: string): string => {
   const numberAsArray = number.split("");
+  console.log({ numberAsArray });
   numberAsArray.splice(0, 1);
   numberAsArray.reverse();
   return numberAsArray.join("");

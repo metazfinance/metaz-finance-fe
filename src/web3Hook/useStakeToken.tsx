@@ -14,8 +14,6 @@ import { useCheckValidNetwork } from "./useCheckValidNetwork";
 import { useBalanceErc20 } from "./useErc20";
 
 export const useInfoPoolStakeToken = () => {
-  // eslint-disable-next-line no-console
-  console.log("useInfoPoolStakeToken");
   const address = useGetAccount();
   const provider = useGetProvider();
   const singer = useGetSinger();
@@ -207,8 +205,6 @@ export const useActionIOnPool = (contractAddress: IAddress | string) => {
       const instance = getInstance();
       const _amount = ethers.utils.parseUnits(amount + "", 18);
 
-      // eslint-disable-next-line no-console
-      console.log(_amount, "_amount");
       const tx = await instance?.stake(_amount);
       if (tx) {
         await tx?.wait();

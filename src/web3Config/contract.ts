@@ -12,7 +12,7 @@ export const contractAddress = {
     lpToken: "0x9b030A3F6Ef4911391B067b65ae4719785B5a2D5",
     stakingLpTokenV1: "0xa612AAe296a28517b9250a0b28a6E2BEF73Db173",
     // lotteryV1: "0xCDAa98591CfF0367F3540E07B4433eA4e528eA8a",
-    lotteryV1: "0x3E2e252E360d34573547A9DcaD17C927B8b1C9EB",
+    lotteryV1: "0xb8265159C5Fdb453e6A6Fdb68d77eA7962135c9b",
 
     rewardContractStakeValidator: "0x11028621939D02093F809688384e662A06043dB7",
     stakingCetToValidator: "0x0000000000000000000000000000000000001000",
@@ -79,3 +79,5 @@ export const PUBLIC_RPC = {
   53: "https://testnet-rpc.coinex.net",
   52: "https://rpc.coinex.net",
 }[CHAIN_ID];
+
+export const BLOCK_PER_SECONDS = 3000;

@@ -1,43 +1,15 @@
-import { BallColor, BallWithNumber } from "@/components/BallSVG/Balls";
-import { parseRetrievedNumber } from "@/utils/helpers";
-import { useGetCurrentLotteryInfo, useLottery } from "@/web3Hook/useLottery";
-import { random } from "lodash-es";
-import { useEffect, useState } from "react";
+import { useGetCurrentLotteryInfo } from "@/web3Hook/useLottery";
 
+import AppNextDraw from "@/components/AppNextDraw";
 import BuyTicketsButton from "@/components/BuyTickets";
-import {
-  Badge,
-  Box,
-  Flex,
-  Spinner,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
-import Countdown, { zeroPad } from "react-countdown";
 import LotteryLeaderBoard from "./LotteryLeaderBoard";
 import LotteryPoolHistory from "./LotteryPoolHistory";
 
 export default function LotteryView() {
   const { isLoading, data } = useGetCurrentLotteryInfo();
-  const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      return <span>Lottery ended</span>;
-    } else {
-      return (
-        <span>
-          {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
-        </span>
-      );
-    }
-  };
 
   const img1Animation = useAnimation();
   const img2Animation = useAnimation();
@@ -68,7 +40,24 @@ export default function LotteryView() {
     });
   };
 
-  if (isLoading) return <Spinner size={"md"} />;
+  if (isLoading)
+    return (
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        minH={"80vh"}
+      >
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Box>
+    );
+
   return (
     <Box>
       <Box
@@ -246,27 +235,14 @@ export default function LotteryView() {
                   fontWeight="bold"
                   color={"#163b56"}
                 >
-                  $ {data.totalReward}
+                  $ {data?.totalReward / 1e18 || 0}
                 </Text>
-                <Flex alignItems={"center"} py={4} gap={1}>
-                  <Text fontSize={"md"} color={"#eba337"} fontWeight={700}>
-                    Next Draw
-                  </Text>
-
-                  <Text fontSize={"md"} fontWeight={"700"}>
-                    {data.blockTimeEnd && (
-                      <Countdown
-                        date={data.blockTimeEnd}
-                        renderer={renderer}
-                        zeroPadDays={2}
-                      />
-                    )}
-                  </Text>
-                </Flex>
-
-                <Box>
-                  <BuyTicketsButton />
-                </Box>
+                {data && (
+                  <AppNextDraw
+                    blockEnd={data?.blockEnd}
+                    blockStart={data?.blockStart}
+                  />
+                )}
               </Box>
             </Box>
           </Box>

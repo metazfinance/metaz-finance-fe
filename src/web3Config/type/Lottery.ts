@@ -29,15 +29,16 @@ import type {
 
 export interface LotteryInterface extends utils.Interface {
   functions: {
+    "buyTickets(uint32[])": FunctionFragment;
+    "claimReward(uint256)": FunctionFragment;
+    "drawFinalNumberAndMakeLotteryClaimable(uint32)": FunctionFragment;
+    "newLottery()": FunctionFragment;
     "_lotteries(uint256)": FunctionFragment;
     "_numberTicketsPerLotteryId(uint256,uint32)": FunctionFragment;
     "_userTicketIdsPerLotteryId(address,uint256,uint32)": FunctionFragment;
-    "buyTickets(uint32[])": FunctionFragment;
     "cakeToken()": FunctionFragment;
-    "claimReward(uint256)": FunctionFragment;
     "currentLotteryId()": FunctionFragment;
     "discountNumber(address,uint256)": FunctionFragment;
-    "drawFinalNumberAndMakeLotteryClaimable()": FunctionFragment;
     "fee_rate()": FunctionFragment;
     "first10000(uint256)": FunctionFragment;
     "first120000(uint256)": FunctionFragment;
@@ -45,15 +46,15 @@ export interface LotteryInterface extends utils.Interface {
     "first250000(uint256)": FunctionFragment;
     "first50000(uint256)": FunctionFragment;
     "first600000(uint256)": FunctionFragment;
-    "getLeaderboard()": FunctionFragment;
     "getfirst10000()": FunctionFragment;
     "getfirst120000()": FunctionFragment;
     "getfirst1200000()": FunctionFragment;
     "getfirst250000()": FunctionFragment;
     "getfirst50000()": FunctionFragment;
     "getfirst600000()": FunctionFragment;
+    "getLeaderboard()": FunctionFragment;
+    "isClaimed(address,uint256)": FunctionFragment;
     "isInLeaderBoard(address,uint32)": FunctionFragment;
-    "newLottery()": FunctionFragment;
     "owner()": FunctionFragment;
     "pricePerTicket()": FunctionFragment;
     "rewardCalculate(address,uint256)": FunctionFragment;
@@ -71,15 +72,16 @@ export interface LotteryInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "buyTickets"
+      | "claimReward"
+      | "drawFinalNumberAndMakeLotteryClaimable"
+      | "newLottery"
       | "_lotteries"
       | "_numberTicketsPerLotteryId"
       | "_userTicketIdsPerLotteryId"
-      | "buyTickets"
       | "cakeToken"
-      | "claimReward"
       | "currentLotteryId"
       | "discountNumber"
-      | "drawFinalNumberAndMakeLotteryClaimable"
       | "fee_rate"
       | "first10000"
       | "first120000"
@@ -87,15 +89,15 @@ export interface LotteryInterface extends utils.Interface {
       | "first250000"
       | "first50000"
       | "first600000"
-      | "getLeaderboard"
       | "getfirst10000"
       | "getfirst120000"
       | "getfirst1200000"
       | "getfirst250000"
       | "getfirst50000"
       | "getfirst600000"
+      | "getLeaderboard"
+      | "isClaimed"
       | "isInLeaderBoard"
-      | "newLottery"
       | "owner"
       | "pricePerTicket"
       | "rewardCalculate"
@@ -112,6 +114,22 @@ export interface LotteryInterface extends utils.Interface {
   ): FunctionFragment;
 
   encodeFunctionData(
+    functionFragment: "buyTickets",
+    values: [PromiseOrValue<BigNumberish>[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "claimReward",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "drawFinalNumberAndMakeLotteryClaimable",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "newLottery",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "_lotteries",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -127,15 +145,7 @@ export interface LotteryInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>
     ]
   ): string;
-  encodeFunctionData(
-    functionFragment: "buyTickets",
-    values: [PromiseOrValue<BigNumberish>[]]
-  ): string;
   encodeFunctionData(functionFragment: "cakeToken", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "claimReward",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
   encodeFunctionData(
     functionFragment: "currentLotteryId",
     values?: undefined
@@ -143,10 +153,6 @@ export interface LotteryInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "discountNumber",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "drawFinalNumberAndMakeLotteryClaimable",
-    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "fee_rate", values?: undefined): string;
   encodeFunctionData(
@@ -174,10 +180,6 @@ export interface LotteryInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getLeaderboard",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getfirst10000",
     values?: undefined
   ): string;
@@ -202,12 +204,16 @@ export interface LotteryInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "isInLeaderBoard",
+    functionFragment: "getLeaderboard",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isClaimed",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "newLottery",
-    values?: undefined
+    functionFragment: "isInLeaderBoard",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -256,6 +262,16 @@ export interface LotteryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "validator", values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: "buyTickets", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "claimReward",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "drawFinalNumberAndMakeLotteryClaimable",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "newLottery", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "_lotteries", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "_numberTicketsPerLotteryId",
@@ -265,22 +281,13 @@ export interface LotteryInterface extends utils.Interface {
     functionFragment: "_userTicketIdsPerLotteryId",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "buyTickets", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "cakeToken", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "claimReward",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "currentLotteryId",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "discountNumber",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "drawFinalNumberAndMakeLotteryClaimable",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "fee_rate", data: BytesLike): Result;
@@ -300,10 +307,6 @@ export interface LotteryInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "first50000", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "first600000",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getLeaderboard",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -331,10 +334,14 @@ export interface LotteryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getLeaderboard",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "isClaimed", data: BytesLike): Result;
+  decodeFunctionResult(
     functionFragment: "isInLeaderBoard",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "newLottery", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pricePerTicket",
@@ -419,6 +426,25 @@ export interface Lottery extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    buyTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    claimReward(
+      lotteryId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    drawFinalNumberAndMakeLotteryClaimable(
+      finalNumber: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    newLottery(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     _lotteries(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -465,17 +491,7 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    buyTickets(
-      _ticketNumbers: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
     cakeToken(overrides?: CallOverrides): Promise<[string]>;
-
-    claimReward(
-      lotteryId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     currentLotteryId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -484,10 +500,6 @@ export interface Lottery extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    drawFinalNumberAndMakeLotteryClaimable(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
 
     fee_rate(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -521,8 +533,6 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    getLeaderboard(overrides?: CallOverrides): Promise<[string[], BigNumber[]]>;
-
     getfirst10000(overrides?: CallOverrides): Promise<[string[]]>;
 
     getfirst120000(overrides?: CallOverrides): Promise<[string[]]>;
@@ -535,15 +545,19 @@ export interface Lottery extends BaseContract {
 
     getfirst600000(overrides?: CallOverrides): Promise<[string[]]>;
 
-    isInLeaderBoard(
+    getLeaderboard(overrides?: CallOverrides): Promise<[string[], BigNumber[]]>;
+
+    isClaimed(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
-    newLottery(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    isInLeaderBoard(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -585,6 +599,25 @@ export interface Lottery extends BaseContract {
 
     validator(overrides?: CallOverrides): Promise<[string]>;
   };
+
+  buyTickets(
+    _ticketNumbers: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  claimReward(
+    lotteryId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  drawFinalNumberAndMakeLotteryClaimable(
+    finalNumber: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  newLottery(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   _lotteries(
     arg0: PromiseOrValue<BigNumberish>,
@@ -632,17 +665,7 @@ export interface Lottery extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  buyTickets(
-    _ticketNumbers: PromiseOrValue<BigNumberish>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
-
   cakeToken(overrides?: CallOverrides): Promise<string>;
-
-  claimReward(
-    lotteryId: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   currentLotteryId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -651,10 +674,6 @@ export interface Lottery extends BaseContract {
     arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
-
-  drawFinalNumberAndMakeLotteryClaimable(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
 
   fee_rate(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -688,8 +707,6 @@ export interface Lottery extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  getLeaderboard(overrides?: CallOverrides): Promise<[string[], BigNumber[]]>;
-
   getfirst10000(overrides?: CallOverrides): Promise<string[]>;
 
   getfirst120000(overrides?: CallOverrides): Promise<string[]>;
@@ -702,15 +719,19 @@ export interface Lottery extends BaseContract {
 
   getfirst600000(overrides?: CallOverrides): Promise<string[]>;
 
-  isInLeaderBoard(
+  getLeaderboard(overrides?: CallOverrides): Promise<[string[], BigNumber[]]>;
+
+  isClaimed(
     arg0: PromiseOrValue<string>,
     arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
-  newLottery(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  isInLeaderBoard(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -753,6 +774,23 @@ export interface Lottery extends BaseContract {
   validator(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
+    buyTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    claimReward(
+      lotteryId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    drawFinalNumberAndMakeLotteryClaimable(
+      finalNumber: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    newLottery(overrides?: CallOverrides): Promise<void>;
+
     _lotteries(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -799,17 +837,7 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    buyTickets(
-      _ticketNumbers: PromiseOrValue<BigNumberish>[],
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     cakeToken(overrides?: CallOverrides): Promise<string>;
-
-    claimReward(
-      lotteryId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     currentLotteryId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -818,10 +846,6 @@ export interface Lottery extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    drawFinalNumberAndMakeLotteryClaimable(
-      overrides?: CallOverrides
-    ): Promise<void>;
 
     fee_rate(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -855,8 +879,6 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    getLeaderboard(overrides?: CallOverrides): Promise<[string[], BigNumber[]]>;
-
     getfirst10000(overrides?: CallOverrides): Promise<string[]>;
 
     getfirst120000(overrides?: CallOverrides): Promise<string[]>;
@@ -869,13 +891,19 @@ export interface Lottery extends BaseContract {
 
     getfirst600000(overrides?: CallOverrides): Promise<string[]>;
 
-    isInLeaderBoard(
+    getLeaderboard(overrides?: CallOverrides): Promise<[string[], BigNumber[]]>;
+
+    isClaimed(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    newLottery(overrides?: CallOverrides): Promise<void>;
+    isInLeaderBoard(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -932,6 +960,25 @@ export interface Lottery extends BaseContract {
   };
 
   estimateGas: {
+    buyTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    claimReward(
+      lotteryId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    drawFinalNumberAndMakeLotteryClaimable(
+      finalNumber: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    newLottery(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     _lotteries(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -950,17 +997,7 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    buyTickets(
-      _ticketNumbers: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
     cakeToken(overrides?: CallOverrides): Promise<BigNumber>;
-
-    claimReward(
-      lotteryId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
 
     currentLotteryId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -968,10 +1005,6 @@ export interface Lottery extends BaseContract {
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    drawFinalNumberAndMakeLotteryClaimable(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     fee_rate(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1006,8 +1039,6 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getLeaderboard(overrides?: CallOverrides): Promise<BigNumber>;
-
     getfirst10000(overrides?: CallOverrides): Promise<BigNumber>;
 
     getfirst120000(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1020,14 +1051,18 @@ export interface Lottery extends BaseContract {
 
     getfirst600000(overrides?: CallOverrides): Promise<BigNumber>;
 
-    isInLeaderBoard(
+    getLeaderboard(overrides?: CallOverrides): Promise<BigNumber>;
+
+    isClaimed(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    newLottery(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    isInLeaderBoard(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1072,6 +1107,25 @@ export interface Lottery extends BaseContract {
   };
 
   populateTransaction: {
+    buyTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    claimReward(
+      lotteryId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    drawFinalNumberAndMakeLotteryClaimable(
+      finalNumber: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    newLottery(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     _lotteries(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1090,17 +1144,7 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    buyTickets(
-      _ticketNumbers: PromiseOrValue<BigNumberish>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
     cakeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    claimReward(
-      lotteryId: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
 
     currentLotteryId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1108,10 +1152,6 @@ export interface Lottery extends BaseContract {
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    drawFinalNumberAndMakeLotteryClaimable(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     fee_rate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1146,8 +1186,6 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getLeaderboard(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getfirst10000(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getfirst120000(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1160,14 +1198,18 @@ export interface Lottery extends BaseContract {
 
     getfirst600000(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isInLeaderBoard(
+    getLeaderboard(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isClaimed(
       arg0: PromiseOrValue<string>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    newLottery(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    isInLeaderBoard(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;

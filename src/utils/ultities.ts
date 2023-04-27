@@ -44,3 +44,27 @@ export const randomTicketNumbers = (amounts) => {
   }
   return arr;
 };
+
+export const formatCurrency = (price: string | number): unknown => {
+  const currentPrice = Number(price);
+  if (currentPrice >= 1000) {
+    return beautifulNumber(+currentPrice.toFixed(1));
+  }
+
+  if (currentPrice > 100 && currentPrice < 1000) {
+    return currentPrice.toFixed(2);
+  }
+
+  if (currentPrice >= 10 && currentPrice < 100) {
+    return currentPrice.toFixed(2);
+  }
+
+  if (currentPrice >= 1 && currentPrice < 10) {
+    return currentPrice.toFixed(2);
+  }
+
+  if (currentPrice < 1 && currentPrice > 0) {
+    return currentPrice.toFixed(3);
+  }
+  return 0;
+};

@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Flex,
+  Skeleton,
   Table,
   TableContainer,
   Tbody,
@@ -55,14 +56,6 @@ export default function LotteryLeaderBoard() {
             background: "#FBE1D3",
           }}
         >
-          {/* <Box p={4}>
-            <Flex gap={5} alignItems={"center"}>
-              <Text>Round</Text>
-              <Text>864</Text>
-            </Flex>
-            <Text textAlign={"left"}>Drawn Apr 9, 2023, 7:00 AM</Text>
-          </Box> */}
-
           <Box p={4}>
             <Flex gap={5} alignItems={"center"}>
               <Text fontWeight={"bold"}>Leader board</Text>

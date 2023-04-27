@@ -1,6 +1,7 @@
-import { getBalanceLocalString } from "@/utils/ultities";
+import { getBalanceLocalString, randomTicketNumbers } from "@/utils/ultities";
 import { SYMBOL, contractAddress } from "@/web3Config/contract";
 import { useApproveERC20, useBalanceErc20 } from "@/web3Hook/useErc20";
+import { useActionLottery } from "@/web3Hook/useLottery";
 import {
   Badge,
   Box,
@@ -10,8 +11,6 @@ import {
   FormErrorMessage,
   Input,
   InputGroup,
-  InputLeftElement,
-  InputRightAddon,
   ModalBody,
   ModalCloseButton,
   ModalContent,
@@ -21,14 +20,17 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import AppButton from "../AppButton";
-import { useActionLottery } from "@/web3Hook/useLottery";
 
 export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
-  const { isFetching, balance } = useBalanceErc20();
+  const { isFetching, balance } = useBalanceErc20(
+    contractAddress.ERC20_LOTTERY
+  );
 
   const { buyTickets } = useActionLottery();
   const { isApprove, isApproving, approve } = useApproveERC20(
@@ -45,34 +47,39 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-    setValue,
   } = useForm<{
     amount: number;
   }>({
     defaultValues: {},
-    // resolver: {},
+    resolver: yupResolver(
+      yup.object().shape({
+        amount: yup
+          .string()
+          .required("Amount is not valid")
+          .test("amount", "Max ticket is 5000", (value: any) => +value < 5000),
+      })
+    ),
   });
 
+  const isDisable = isSubmitting || buyTickets.isLoading;
+
   const onSubmit = async (formValues: { amount: number }) => {
-    const ticketNumbers = [123, 456, 789];
-    try {
-      await buyTickets.mutateAsync(ticketNumbers);
+    const PRICE_TICKETS = 0.1;
+    // const tickets = randomTicketNumbers(formValues.amount);
+    const tickets = [1, 2, 3, 4, 5, 2, 10, 11, 24, 12];
+    const totalPrice = PRICE_TICKETS * +formValues.amount;
+    if (totalPrice > +balance / 1e18) {
       toast({
-        title: "Success",
-        description: "Buy ticket success",
-        status: "success",
-        duration: 5000,
+        title: "Error",
+        description: "Insufficient balance",
+        status: "error",
+        duration: 3000,
         isClosable: true,
       });
-      onClose();
-    } catch (error) {}
+      return;
+    }
+    await buyTickets.mutateAsync(tickets).then(onClose);
   };
-
-  const hasEnoughFund = useMemo(() => {
-    return +balance > 0;
-  }, [balance]);
-
-  const isDisable = isSubmitting;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -194,17 +201,21 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                 </Flex>
               </Flex>
             </Box>
+
+            <Text textAlign={"right"}>
+              Balance:
+              {isFetching ? (
+                "Fetching..."
+              ) : (
+                <>{getBalanceLocalString(balance)}</>
+              )}
+            </Text>
           </ModalBody>
 
           <ModalFooter>
             <Box>
               {isApprove ? (
-                <AppButton
-                  mr={3}
-                  // isDisabled={isDisable || !hasEnoughFund}
-                  // isLoading={isDisable}
-                  type="submit"
-                >
+                <AppButton mr={3} isLoading={isDisable} type="submit">
                   Buy tickes
                 </AppButton>
               ) : (

@@ -10,6 +10,52 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint32[]",
+        name: "_ticketNumbers",
+        type: "uint32[]",
+      },
+    ],
+    name: "buyTickets",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "lotteryId",
+        type: "uint256",
+      },
+    ],
+    name: "claimReward",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint32",
+        name: "finalNumber",
+        type: "uint32",
+      },
+    ],
+    name: "drawFinalNumberAndMakeLotteryClaimable",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "newLottery",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_cakeTokenAddress",
         type: "address",
@@ -171,19 +217,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint32[]",
-        name: "_ticketNumbers",
-        type: "uint32[]",
-      },
-    ],
-    name: "buyTickets",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "cakeToken",
     outputs: [
@@ -194,19 +227,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "lotteryId",
-        type: "uint256",
-      },
-    ],
-    name: "claimReward",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -244,13 +264,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "drawFinalNumberAndMakeLotteryClaimable",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -382,24 +395,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "getLeaderboard",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-      {
-        internalType: "uint256[10]",
-        name: "",
-        type: "uint256[10]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "getfirst10000",
     outputs: [
       {
@@ -477,6 +472,48 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "getLeaderboard",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+      {
+        internalType: "uint256[10]",
+        name: "",
+        type: "uint256[10]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "isClaimed",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -498,13 +535,6 @@ const _abi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "newLottery",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {

@@ -1,8 +1,9 @@
 import { handleError } from "@/utils/ultities";
-import { contractAddress } from "@/web3Config/contract";
+import { PUBLIC_RPC, contractAddress } from "@/web3Config/contract";
 import { multicall } from "@/web3Config/multicall";
 import { Lottery__factory } from "@/web3Config/type";
 import {
+  useGetAccount,
   useGetProvider,
   useGetSinger,
 } from "@/web3Provider/hookStore/useGetProvider";
@@ -107,7 +108,6 @@ export const useGetLeaderBoard = () => {
 
     return _data as {
       leaderBoardList: string[];
-      // totalReward: string;
     };
   };
 
@@ -126,24 +126,45 @@ export const useGetLeaderBoard = () => {
 export const useGetLotteryInfo = () => {
   const provider = useGetProvider();
   const singer = useGetSinger();
-  const getLotteryInfo = async (lotteryId) => {
-    const contractLotteryInstance = Lottery__factory.connect(
-      contractAddress.lotteryV1,
-      singer || provider
-    );
+  const address = useGetAccount();
+  const contractLotteryInstance = Lottery__factory.connect(
+    contractAddress.lotteryV1,
+    singer || provider
+  );
 
+  const getLotteryInfo = async (lotteryId) => {
+    if (+lotteryId == 0) return null;
     const _lotteryInfo = await contractLotteryInstance._lotteries(+lotteryId);
+
     return _lotteryInfo;
+  };
+
+  const getRewardAccount = async (lotteryId) => {
+    const _reward = await contractLotteryInstance.rewardCalculate(
+      address,
+      +lotteryId
+    );
+    return +_reward;
+  };
+
+  const getIsClaimable = async (lotteryId) => {
+    const isClaimed = await contractLotteryInstance.isClaimed(
+      address,
+      +lotteryId
+    );
+    return +isClaimed;
   };
 
   return {
     getLotteryInfo,
+    getRewardAccount,
+    getIsClaimable,
   };
 };
 
 export const useGetCurrentLotteryInfo = () => {
-  const provider = useGetProvider();
   const singer = useGetSinger();
+  const address = useGetAccount();
 
   const lotteryCalls = [
     {
@@ -157,6 +178,7 @@ export const useGetCurrentLotteryInfo = () => {
   ];
 
   const getData = async () => {
+    const provider = new ethers.providers.JsonRpcProvider(PUBLIC_RPC);
     const contractLotteryInstance = Lottery__factory.connect(
       contractAddress.lotteryV1,
       singer || provider
@@ -168,18 +190,30 @@ export const useGetCurrentLotteryInfo = () => {
 
     const currentLotteryId = +_dataPromise[0][0];
     const totalReward = +_dataPromise[0][1];
+    if (currentLotteryId == 0) {
+      return {
+        currentLotteryId: 0,
+        maxNumberTicketsPerUser: 5000,
+        status: 0,
+        blockEnd: 0,
+        myReward: 0,
+        blockStart: 0,
+        totalReward: 0,
+        finalNumber: 0,
+      };
+    } else {
+      const res = await contractLotteryInstance._lotteries(+currentLotteryId);
 
-    const res = await contractLotteryInstance._lotteries(+currentLotteryId);
-    const blockTimeEnd = await provider.getBlock(+res.blockEnd);
-    return {
-      currentLotteryId,
-      status: +res.status,
-      blockEnd: +res.blockEnd,
-      blockTimeEnd: +blockTimeEnd.timestamp,
-      blockStart: +res.blockStart,
-      totalReward: +totalReward,
-      finalNumber: +res.finalNumber,
-    };
+      return {
+        currentLotteryId,
+        maxNumberTicketsPerUser: 5000,
+        status: +res.status,
+        blockEnd: +res.blockEnd,
+        blockStart: +res.blockStart,
+        totalReward,
+        finalNumber: +res.finalNumber,
+      };
+    }
   };
 
   const _data = useQuery({
@@ -197,21 +231,41 @@ export const useGetCurrentLotteryInfo = () => {
 export const useActionLottery = () => {
   const toast = useToast();
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-
-  const contractLotteryInstance = Lottery__factory.connect(
-    contractAddress.lotteryV1,
-    provider.getSigner()
-  );
-
-  const buyTickets = useMutation(async (tickets: number[]) => {
-    const contractRewardInstance = contractLotteryInstance.connect(
+  const getInstance = () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum as any);
+    const contractStakingInstance = Lottery__factory.connect(
       contractAddress.lotteryV1,
       provider.getSigner()
     );
 
+    return contractStakingInstance;
+  };
+
+  const buyTickets = useMutation(async (tickets: number[]) => {
+    const instance = getInstance();
+
     try {
-      const tx = await contractRewardInstance.buyTickets(tickets);
+      const tx = await instance.buyTickets(tickets);
+      if (tx) {
+        await tx?.wait();
+      }
+      return tx;
+    } catch (e: any) {
+      toast({
+        description: e?.message || e?.error?.data?.message || "Something wrong",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return handleError(e);
+    }
+  });
+
+  const claimReward = useMutation(async (lotteryId: number) => {
+    const instance = getInstance();
+
+    try {
+      const tx = await instance.claimReward(+lotteryId);
       if (tx) {
         await tx?.wait();
       }
@@ -229,5 +283,6 @@ export const useActionLottery = () => {
 
   return {
     buyTickets,
+    claimReward,
   };
 };
