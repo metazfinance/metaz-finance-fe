@@ -50,11 +50,9 @@ const AppNextDraw = ({ blockEnd, blockStart }: AppNextDrawProps) => {
     );
   }
 
-    // eslint-disable-next-line no-console
-  console.log(timer, 'timer');
   return (
     <Box>
-      <Flex alignItems={"center"} py={4} gap={1}>
+      <Flex alignItems={"center"} py={4} gap={1} justifyContent={"center"}>
         <Text fontSize={"md"} color={"#eba337"} fontWeight={700}>
           Next Draw
         </Text>

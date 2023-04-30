@@ -7,6 +7,7 @@ import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import LotteryLeaderBoard from "./LotteryLeaderBoard";
 import LotteryPoolHistory from "./LotteryPoolHistory";
+import { SYMBOL } from "@/web3Config/contract";
 
 export default function LotteryView() {
   const { isLoading, data } = useGetCurrentLotteryInfo();
@@ -216,7 +217,7 @@ export default function LotteryView() {
 
         <Flex minH={500} justifyContent={"center"} alignItems={"center"}>
           <Box />
-          <Box>
+          <Box textAlign={"center"}>
             <Text
               textAlign={"center"}
               color={"#eba337"}
@@ -235,7 +236,7 @@ export default function LotteryView() {
                   fontWeight="bold"
                   color={"#163b56"}
                 >
-                  $ {data?.totalReward / 1e18 || 0}
+                  {data?.totalReward / 1e18 || 0} {SYMBOL}
                 </Text>
                 {data && (
                   <AppNextDraw

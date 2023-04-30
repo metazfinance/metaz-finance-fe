@@ -1,6 +1,6 @@
 import { BallColor, BallWithNumber } from "@/components/BallSVG/Balls";
 import { formatCurrency } from "@/utils/ultities";
-import { BLOCK_PER_SECONDS } from "@/web3Config/contract";
+import { BLOCK_PER_SECONDS, SYMBOL } from "@/web3Config/contract";
 import {
   useGetCurrentLotteryInfo,
   useGetLotteryInfo,
@@ -55,6 +55,9 @@ export default function LotteryPoolHistory() {
       blockStart: +res.blockStart,
       totalReward: +res.totalReward / 1e18,
       finalNumber: +res.finalNumber,
+      countWinnersTier1: +res.countWinnersTier1,
+      countWinnersTier2: +res.countWinnersTier2,
+      countWinnersTier3: +res.countWinnersTier3,
     });
 
     setLoading(false);
@@ -81,6 +84,8 @@ export default function LotteryPoolHistory() {
     setCurrentId(currentId + 1);
   };
 
+  // eslint-disable-next-line no-console
+  console.log(lotteryInfo, "datalotteryInfo");
   return (
     <section>
       <Box
@@ -187,47 +192,81 @@ export default function LotteryPoolHistory() {
                           <Text fontSize={12}>Prize Pot</Text>
                         </Th>
                         <Th>
-                          <Text fontSize={"xl"} color="#F8BE9D">
-                            {`$ ${formatCurrency(+lotteryInfo?.totalReward)}`}
+                          <Text color="#F8BE9D">
+                            {`${formatCurrency(+lotteryInfo?.totalReward)}`}{" "}
+                            {SYMBOL}
                           </Text>
                         </Th>
                         <Th textAlign={"left"} color="#F8BE9D">
-                          <Text fontSize={12}>181,663.2368 PPI</Text>
+                          <Text fontSize={12}>Ticket win this round</Text>
                         </Th>
                         <Th textAlign={"right"}>
-                          <Text fontSize={12}>
-                            Total tickets this round: 137
-                          </Text>
+                          <Text fontSize={12}>Tiket in round:</Text>
                           <Text>Total roll over: $7,448.2</Text>
                         </Th>
                         <Th />
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {data?.tiers?.map((tierPercent, idx) => {
-                        return (
-                          <Tr key={idx}>
-                            <Td>
-                              <Text fontWeight={700}>Tier {idx + 1}</Text>
-                            </Td>
-                            <Td>
-                              <Text color="#4daf9e" fontWeight={700}>
-                                {tierPercent}%
-                              </Text>
-                            </Td>
+                      <Tr>
+                        <Td>
+                          <Text fontWeight={700}>Tier 1</Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {data?.tiers[0]}%
+                          </Text>
+                        </Td>
 
-                            <Td>
-                              <Text color="#4daf9e" fontWeight={700}>
-                                {(+lotteryInfo?.totalReward * tierPercent) /
-                                  100}
-                              </Text>
-                            </Td>
-                            <Td>
-                              <Text color="#4daf9e" fontWeight={700}></Text>
-                            </Td>
-                          </Tr>
-                        );
-                      })}
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {lotteryInfo?.countWinnersTier1} tickets
+                          </Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}></Text>
+                        </Td>
+                      </Tr>
+
+                      <Tr>
+                        <Td>
+                          <Text fontWeight={700}>Tier 2</Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {data?.tiers[1]}%
+                          </Text>
+                        </Td>
+
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {lotteryInfo?.countWinnersTier2} tickets
+                          </Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}></Text>
+                        </Td>
+                      </Tr>
+
+                      <Tr>
+                        <Td>
+                          <Text fontWeight={700}>Tier 3</Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {data?.tiers[2]}%
+                          </Text>
+                        </Td>
+
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {lotteryInfo?.countWinnersTier3} tickets
+                          </Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}></Text>
+                        </Td>
+                      </Tr>
 
                       <Tr>
                         <Td>
@@ -270,10 +309,20 @@ export const BallResult = ({ finalNumber }) => {
     "yellow",
   ];
 
+  function padWithLeadingZeros(num, totalLength) {
+    return String(num).padStart(totalLength, "0");
+  }
+
   if (!finalNumber) return null;
+
+  const luckyNumber = padWithLeadingZeros(
+    finalNumber,
+    // @ts-ignore
+    6 - (finalNumber + "").split().length
+  );
   return (
     <Flex justifyContent="space-between">
-      {(finalNumber + "")?.split("").map((num, index) => {
+      {(luckyNumber + "")?.split("").map((num, index) => {
         return (
           <BallWithNumber key={index} color={colors[index]} number={num} />
         );

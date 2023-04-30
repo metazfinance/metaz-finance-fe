@@ -65,8 +65,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
 
   const onSubmit = async (formValues: { amount: number }) => {
     const PRICE_TICKETS = 0.1;
-    // const tickets = randomTicketNumbers(formValues.amount);
-    const tickets = [1, 2, 3, 4, 5, 2, 10, 11, 24, 12];
+    const tickets = randomTicketNumbers(formValues.amount);
     const totalPrice = PRICE_TICKETS * +formValues.amount;
     if (totalPrice > +balance / 1e18) {
       toast({
