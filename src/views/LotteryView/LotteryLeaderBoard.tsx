@@ -89,6 +89,10 @@ export default function LotteryLeaderBoard() {
                   </Thead>
                   <Tbody>
                     {data?.leaderBoardList?.map((address, idx) => {
+                      if (
+                        address === "0x0000000000000000000000000000000000000000"
+                      )
+                        return null;
                       return (
                         <Tr key={address + idx}>
                           <Td>

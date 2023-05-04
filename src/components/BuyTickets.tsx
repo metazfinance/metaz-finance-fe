@@ -1,5 +1,5 @@
 import { useGetCurrentLotteryInfo } from "@/web3Hook/useLottery";
-import { Button, Modal, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Modal, useDisclosure } from "@chakra-ui/react";
 import { AppModalBuyTicket } from "./AppModal/AppModalBuyTicket";
 import { providers } from "ethers";
 import { useEffect, useState } from "react";
@@ -66,7 +66,7 @@ const BuyTicketsButton = ({}) => {
 
   return (
     <>
-      {renderButton()}
+      <Box>{renderButton()}</Box>
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <AppModalBuyTicket onClose={onClose} />
       </Modal>

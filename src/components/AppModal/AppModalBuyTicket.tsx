@@ -151,9 +151,9 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
               </Box>
             </Box>
 
-            <Box py={2}>Max of 10 tickets per purchase</Box>
+            <Box py={2}>Max of 5000 tickets per purchase</Box>
 
-            <Box
+            {/* <Box
               sx={{
                 border: "1px solid #E2E8F0",
                 padding: 5,
@@ -199,7 +199,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                   <Text fontSize={12}>-{SYMBOL}</Text>
                 </Flex>
               </Flex>
-            </Box>
+            </Box> */}
 
             <Text textAlign={"right"}>
               Balance:
