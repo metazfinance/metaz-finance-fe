@@ -70,7 +70,7 @@ export default function LotteryLeaderBoard() {
             borderRadius={10}
             border="1px solid #F8BE9D"
           >
-            <Box display={{ base: "none", md: "block" }}>
+            <Box>
               <TableContainer>
                 <Table>
                   <Thead>
@@ -89,6 +89,8 @@ export default function LotteryLeaderBoard() {
                   </Thead>
                   <Tbody>
                     {data?.leaderBoardList?.map((address, idx) => {
+                      const ticket = Number(data?.tickets?.[idx]);
+
                       if (
                         address === "0x0000000000000000000000000000000000000000"
                       )
@@ -107,7 +109,7 @@ export default function LotteryLeaderBoard() {
                           </Td>
                           <Td>
                             <Text color="#4daf9e" fontWeight={700}>
-                              20 tickets
+                              {ticket} tickets
                             </Text>
                           </Td>
 

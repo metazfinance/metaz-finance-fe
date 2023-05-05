@@ -103,11 +103,13 @@ export const useGetLeaderBoard = () => {
 
     const _data = {
       leaderBoardList: _dataPromise[0][0][0],
+      tickets: _dataPromise[0][0][1],
       totalReward: _dataPromise[0][1],
     };
 
     return _data as {
       leaderBoardList: string[];
+      tickets: any[];
     };
   };
 
