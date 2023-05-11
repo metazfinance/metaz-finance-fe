@@ -1,6 +1,5 @@
 import { handleError } from "@/utils/ultities";
 import { contractAddress } from "@/web3Config/contract";
-import { multicall } from "@/web3Config/multicall";
 import {
   StakingRewards__factory,
   StakingToValidator__factory,
@@ -130,7 +129,7 @@ export const useActionInfoValidator = () => {
       return tx;
     } catch (e: any) {
       toast({
-        description: e?.message || e?.error?.data?.message || "Something wrong",
+        description: "Transaction failed",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -149,7 +148,7 @@ export const useActionInfoValidator = () => {
       return tx;
     } catch (e: any) {
       toast({
-        description: e?.message || e?.error?.data?.message || "Something wrong",
+        description: "Transaction failed",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -168,7 +167,7 @@ export const useActionInfoValidator = () => {
       return tx;
     } catch (e: any) {
       toast({
-        description: e?.message || e?.error?.data?.message || "Something wrong",
+        description: "Transaction failed",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -192,7 +191,7 @@ export const useActionInfoValidator = () => {
       return tx;
     } catch (e: any) {
       toast({
-        description: e?.message || e?.error?.data?.message || "Something wrong",
+        description: "Transaction failed",
         status: "error",
         duration: 2000,
         isClosable: true,

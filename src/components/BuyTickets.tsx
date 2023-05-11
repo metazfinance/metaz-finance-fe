@@ -1,7 +1,12 @@
-import { useGetCurrentLotteryInfo } from "@/web3Hook/useLottery";
+import { randomTicketNumbers } from "@/utils/ultities";
+import {
+  useActionLottery,
+  useGetCurrentLotteryInfo,
+} from "@/web3Hook/useLottery";
 import { Box, Button, Flex, Modal, useDisclosure } from "@chakra-ui/react";
 import { providers } from "ethers";
 import { useEffect, useState } from "react";
+import AppButton from "./AppButton";
 import { AppModalBuyTicket } from "./AppModal/AppModalBuyTicket";
 import { AppModalGetTicket } from "./AppModal/AppModalGetTicket";
 
@@ -29,6 +34,8 @@ const BuyTicketsButton = ({}) => {
     onClose: _onClose,
   } = useDisclosure();
   const { data: lotteryInfo } = useGetCurrentLotteryInfo();
+
+  const { claimFreeTicket } = useActionLottery();
 
   const [currentBlock] = useGetCurrentBlock();
 
@@ -71,24 +78,27 @@ const BuyTicketsButton = ({}) => {
     return null;
   };
 
+  const handleClaimTicketFree = async () => {
+    const tickets = randomTicketNumbers(10);
+    await claimFreeTicket.mutateAsync(tickets);
+  };
   const renderButtonClaimFree = () => {
     if (!lotteryInfo && !currentBlock) return null;
 
+    if (!lotteryInfo.isTicketFree) return null;
+
     if (lotteryInfo.status === 1 && lotteryInfo.blockEnd > currentBlock) {
       return (
-        <Button
-          isDisabled
-          color="primary"
+        <AppButton
           borderRadius={10}
-          sx={{
-            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-            border: "2px solid #F8BE9D",
-          }}
           px={4}
           py={6}
+          isLoading={claimFreeTicket.isLoading}
+          isDisabled={claimFreeTicket.isLoading}
+          onClick={handleClaimTicketFree}
         >
           Claim ticket
-        </Button>
+        </AppButton>
       );
     }
 

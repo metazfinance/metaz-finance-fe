@@ -216,6 +216,11 @@ export const useGetCurrentLotteryInfo = () => {
           name: "totalTicketByUser",
           params: [account, currentLotteryId],
         },
+        {
+          address: contractAddress.lotteryV1,
+          name: "checkFreeTicketsClaimable",
+          params: [account],
+        },
       ];
 
       const _dataPromise = await Promise.all([
@@ -224,6 +229,7 @@ export const useGetCurrentLotteryInfo = () => {
 
       const _lotteries = _dataPromise[0][0];
       const countTicket = _dataPromise[0][1];
+      const ticketFree = _dataPromise[0][2];
 
       return {
         currentLotteryId: +currentLotteryId,
@@ -234,6 +240,7 @@ export const useGetCurrentLotteryInfo = () => {
         totalReward,
         finalNumber: +_lotteries.finalNumber,
         ticketHasBuy: +countTicket,
+        isTicketFree: ticketFree[0],
       };
     }
   };
@@ -252,6 +259,7 @@ export const useGetCurrentLotteryInfo = () => {
 
 export const useActionLottery = () => {
   const toast = useToast();
+  const { refetch } = useGetCurrentLotteryInfo();
 
   const getInstance = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum as any);
@@ -268,16 +276,17 @@ export const useActionLottery = () => {
 
     try {
       const tx = await instance.buyTickets(tickets, {
-        gasLimit: 2000000,
+        gasLimit: 40000000,
       });
 
       if (tx) {
         await tx?.wait();
+        refetch();
       }
       return tx;
     } catch (e: any) {
       toast({
-        description: e?.message || e?.error?.data?.message || "Something wrong",
+        description: "Transaction failed",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -293,11 +302,36 @@ export const useActionLottery = () => {
       const tx = await instance.claimReward(+lotteryId);
       if (tx) {
         await tx?.wait();
+        refetch();
       }
       return tx;
     } catch (e: any) {
       toast({
-        description: e?.message || e?.error?.data?.message || "Something wrong",
+        description: "Transaction failed",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+      return handleError(e);
+    }
+  });
+
+  const claimFreeTicket = useMutation(async (tickets: number[]) => {
+    const instance = getInstance();
+
+    try {
+      const tx = await instance.claimFreeTickets(tickets, {
+        gasLimit: 2000000,
+      });
+
+      if (tx) {
+        await tx?.wait();
+        refetch();
+      }
+      return tx;
+    } catch (e: any) {
+      toast({
+        description: "Transaction failed",
         status: "error",
         duration: 2000,
         isClosable: true,
@@ -309,5 +343,6 @@ export const useActionLottery = () => {
   return {
     buyTickets,
     claimReward,
+    claimFreeTicket,
   };
 };

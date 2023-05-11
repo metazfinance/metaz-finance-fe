@@ -143,9 +143,6 @@ export const useInfoPoolStakeToken = () => {
     ]);
 
     const _data = _dataPromise.map((pool, index) => {
-      // eslint-disable-next-line no-console
-      console.log(+ethers.utils.parseUnits(pool[5] + "", 18));
-
       return {
         contract: pools[index],
         totalStaked: pool[0][0],

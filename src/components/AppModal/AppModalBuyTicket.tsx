@@ -1,5 +1,6 @@
 import { getBalanceLocalString, randomTicketNumbers } from "@/utils/ultities";
 import {
+  MAX_BUY_PER_TX,
   MAX_TICKET_BUY,
   PRICE_TICKET,
   SYMBOL,
@@ -103,7 +104,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
   const onSetMaxTicketBuy = () => {
     if (!currentLotteryInfo) return;
     const ticketHasBuy = MAX_TICKET_BUY - currentLotteryInfo.ticketHasBuy;
-    setValue("amount", ticketHasBuy > 1000 ? 1000 : ticketHasBuy);
+    setValue("amount", ticketHasBuy > MAX_BUY_PER_TX ? MAX_BUY_PER_TX : ticketHasBuy);
     return;
   };
 
