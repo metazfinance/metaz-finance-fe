@@ -12,7 +12,7 @@ export const contractAddress = {
     lpToken: "0x9b030A3F6Ef4911391B067b65ae4719785B5a2D5",
     stakingLpTokenV1: "0xa612AAe296a28517b9250a0b28a6E2BEF73Db173",
     // lotteryV1: "0xCDAa98591CfF0367F3540E07B4433eA4e528eA8a",
-    lotteryV1: "0xb8f42ec2C4620ACa0c472B275131203ABfE93AC1",
+    lotteryV1: "0x42026FA0c3a0f79938709B9253cDF584e2a1637F",
 
     rewardContractStakeValidator: "0x11028621939D02093F809688384e662A06043dB7",
     stakingCetToValidator: "0x0000000000000000000000000000000000001000",
@@ -81,3 +81,6 @@ export const PUBLIC_RPC = {
 }[CHAIN_ID];
 
 export const BLOCK_PER_SECONDS = 3000;
+
+export const PRICE_TICKET = 0.1;
+export const MAX_TICKET_BUY = 5000;

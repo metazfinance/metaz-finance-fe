@@ -1,15 +1,7 @@
 import { getBalanceLocalString, randomTicketNumbers } from "@/utils/ultities";
-import {
-  MAX_TICKET_BUY,
-  PRICE_TICKET,
-  SYMBOL,
-  contractAddress,
-} from "@/web3Config/contract";
+import { SYMBOL, contractAddress } from "@/web3Config/contract";
 import { useApproveERC20, useBalanceErc20 } from "@/web3Hook/useErc20";
-import {
-  useActionLottery,
-  useGetCurrentLotteryInfo,
-} from "@/web3Hook/useLottery";
+import { useActionLottery } from "@/web3Hook/useLottery";
 import {
   Badge,
   Box,
@@ -30,17 +22,16 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import AppButton from "../AppButton";
 
-export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
+export const AppModalGetTicket = ({ onClose }: { onClose: () => void }) => {
   const { isFetching, balance } = useBalanceErc20(
     contractAddress.ERC20_LOTTERY
   );
 
-  const { data: currentLotteryInfo } = useGetCurrentLotteryInfo();
   const { buyTickets } = useActionLottery();
   const { isApprove, isApproving, approve } = useApproveERC20(
     contractAddress.lotteryV1,
@@ -56,9 +47,6 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-    watch,
-    getValues,
-    setValue,
   } = useForm<{
     amount: number;
   }>({
@@ -66,9 +54,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
     resolver: yupResolver(
       yup.object().shape({
         amount: yup
-          .number()
-          .typeError("Amount must be a number")
-          .nullable()
+          .string()
           .required("Amount is not valid")
           .test("amount", "Max ticket is 5000", (value: any) => +value < 5000),
       })
@@ -78,8 +64,9 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
   const isDisable = isSubmitting || buyTickets.isLoading;
 
   const onSubmit = async (formValues: { amount: number }) => {
+    const PRICE_TICKETS = 0.1;
     const tickets = randomTicketNumbers(formValues.amount);
-    const totalPrice = PRICE_TICKET * +formValues.amount;
+    const totalPrice = PRICE_TICKETS * +formValues.amount;
     if (totalPrice > +balance / 1e18) {
       toast({
         title: "Error",
@@ -91,20 +78,6 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
       return;
     }
     await buyTickets.mutateAsync(tickets).then(onClose);
-  };
-
-  const _amount = useMemo(() => {
-    if (getValues("amount")) {
-      return Number(getValues("amount")) * PRICE_TICKET;
-    }
-    return 0;
-  }, [watch("amount")]);
-
-  const onSetMaxTicketBuy = () => {
-    if (!currentLotteryInfo) return;
-    const ticketHasBuy = MAX_TICKET_BUY - currentLotteryInfo.ticketHasBuy;
-    setValue("amount", ticketHasBuy > 1000 ? 1000 : ticketHasBuy);
-    return;
   };
 
   return (
@@ -165,7 +138,6 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                     </FormControl>
                     <Box>Tickets</Box>
                     <Badge
-                      onClick={onSetMaxTicketBuy}
                       background={"green"}
                       color={"white"}
                       px={2}
@@ -175,14 +147,6 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                       Max
                     </Badge>
                   </Flex>
-                </Box>
-
-                <Box>
-                  {!isNaN(_amount) && (
-                    <Text>
-                      {_amount} {SYMBOL}
-                    </Text>
-                  )}
                 </Box>
               </Box>
             </Box>

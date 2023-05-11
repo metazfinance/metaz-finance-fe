@@ -30,6 +30,7 @@ import type {
 export interface LotteryInterface extends utils.Interface {
   functions: {
     "buyTickets(uint32[])": FunctionFragment;
+    "claimFreeTickets(uint32[])": FunctionFragment;
     "claimReward(uint256)": FunctionFragment;
     "drawFinalNumberAndMakeLotteryClaimable(uint32)": FunctionFragment;
     "newLottery()": FunctionFragment;
@@ -37,6 +38,7 @@ export interface LotteryInterface extends utils.Interface {
     "_numberTicketsPerLotteryId(uint256,uint32)": FunctionFragment;
     "_userTicketIdsPerLotteryId(address,uint256,uint32)": FunctionFragment;
     "cakeToken()": FunctionFragment;
+    "checkFreeTicketsClaimable(address)": FunctionFragment;
     "currentLotteryId()": FunctionFragment;
     "discountNumber(address,uint256)": FunctionFragment;
     "fee_rate()": FunctionFragment;
@@ -46,6 +48,7 @@ export interface LotteryInterface extends utils.Interface {
     "first250000(uint256)": FunctionFragment;
     "first50000(uint256)": FunctionFragment;
     "first600000(uint256)": FunctionFragment;
+    "freeTicketsClaimed(address,uint256)": FunctionFragment;
     "getfirst10000()": FunctionFragment;
     "getfirst120000()": FunctionFragment;
     "getfirst1200000()": FunctionFragment;
@@ -73,6 +76,7 @@ export interface LotteryInterface extends utils.Interface {
   getFunction(
     nameOrSignatureOrTopic:
       | "buyTickets"
+      | "claimFreeTickets"
       | "claimReward"
       | "drawFinalNumberAndMakeLotteryClaimable"
       | "newLottery"
@@ -80,6 +84,7 @@ export interface LotteryInterface extends utils.Interface {
       | "_numberTicketsPerLotteryId"
       | "_userTicketIdsPerLotteryId"
       | "cakeToken"
+      | "checkFreeTicketsClaimable"
       | "currentLotteryId"
       | "discountNumber"
       | "fee_rate"
@@ -89,6 +94,7 @@ export interface LotteryInterface extends utils.Interface {
       | "first250000"
       | "first50000"
       | "first600000"
+      | "freeTicketsClaimed"
       | "getfirst10000"
       | "getfirst120000"
       | "getfirst1200000"
@@ -115,6 +121,10 @@ export interface LotteryInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "buyTickets",
+    values: [PromiseOrValue<BigNumberish>[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "claimFreeTickets",
     values: [PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
@@ -147,6 +157,10 @@ export interface LotteryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "cakeToken", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "checkFreeTicketsClaimable",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "currentLotteryId",
     values?: undefined
   ): string;
@@ -178,6 +192,10 @@ export interface LotteryInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "first600000",
     values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "freeTicketsClaimed",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getfirst10000",
@@ -264,6 +282,10 @@ export interface LotteryInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: "buyTickets", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "claimFreeTickets",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "claimReward",
     data: BytesLike
   ): Result;
@@ -282,6 +304,10 @@ export interface LotteryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "cakeToken", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "checkFreeTicketsClaimable",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "currentLotteryId",
     data: BytesLike
@@ -307,6 +333,10 @@ export interface LotteryInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "first50000", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "first600000",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "freeTicketsClaimed",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -431,6 +461,11 @@ export interface Lottery extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    claimFreeTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     claimReward(
       lotteryId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -493,6 +528,11 @@ export interface Lottery extends BaseContract {
 
     cakeToken(overrides?: CallOverrides): Promise<[string]>;
 
+    checkFreeTicketsClaimable(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     currentLotteryId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     discountNumber(
@@ -532,6 +572,12 @@ export interface Lottery extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    freeTicketsClaimed(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     getfirst10000(overrides?: CallOverrides): Promise<[string[]]>;
 
@@ -605,6 +651,11 @@ export interface Lottery extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  claimFreeTickets(
+    _ticketNumbers: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   claimReward(
     lotteryId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -667,6 +718,11 @@ export interface Lottery extends BaseContract {
 
   cakeToken(overrides?: CallOverrides): Promise<string>;
 
+  checkFreeTicketsClaimable(
+    _address: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   currentLotteryId(overrides?: CallOverrides): Promise<BigNumber>;
 
   discountNumber(
@@ -706,6 +762,12 @@ export interface Lottery extends BaseContract {
     arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  freeTicketsClaimed(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   getfirst10000(overrides?: CallOverrides): Promise<string[]>;
 
@@ -779,6 +841,11 @@ export interface Lottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    claimFreeTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     claimReward(
       lotteryId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -839,6 +906,11 @@ export interface Lottery extends BaseContract {
 
     cakeToken(overrides?: CallOverrides): Promise<string>;
 
+    checkFreeTicketsClaimable(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     currentLotteryId(overrides?: CallOverrides): Promise<BigNumber>;
 
     discountNumber(
@@ -878,6 +950,12 @@ export interface Lottery extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    freeTicketsClaimed(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     getfirst10000(overrides?: CallOverrides): Promise<string[]>;
 
@@ -965,6 +1043,11 @@ export interface Lottery extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    claimFreeTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     claimReward(
       lotteryId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -998,6 +1081,11 @@ export interface Lottery extends BaseContract {
     ): Promise<BigNumber>;
 
     cakeToken(overrides?: CallOverrides): Promise<BigNumber>;
+
+    checkFreeTicketsClaimable(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     currentLotteryId(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1036,6 +1124,12 @@ export interface Lottery extends BaseContract {
 
     first600000(
       arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    freeTicketsClaimed(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1112,6 +1206,11 @@ export interface Lottery extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    claimFreeTickets(
+      _ticketNumbers: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     claimReward(
       lotteryId: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -1145,6 +1244,11 @@ export interface Lottery extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     cakeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    checkFreeTicketsClaimable(
+      _address: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     currentLotteryId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1183,6 +1287,12 @@ export interface Lottery extends BaseContract {
 
     first600000(
       arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    freeTicketsClaimed(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

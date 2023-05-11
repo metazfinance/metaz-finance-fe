@@ -166,7 +166,7 @@ export const useGetLotteryInfo = () => {
 
 export const useGetCurrentLotteryInfo = () => {
   const singer = useGetSinger();
-  const address = useGetAccount();
+  const account = useGetAccount();
 
   const lotteryCalls = [
     {
@@ -192,6 +192,7 @@ export const useGetCurrentLotteryInfo = () => {
 
     const currentLotteryId = +_dataPromise[0][0];
     const totalReward = +_dataPromise[0][1];
+
     if (currentLotteryId == 0) {
       return {
         currentLotteryId: 0,
@@ -204,16 +205,35 @@ export const useGetCurrentLotteryInfo = () => {
         finalNumber: 0,
       };
     } else {
-      const res = await contractLotteryInstance._lotteries(+currentLotteryId);
+      const calls = [
+        {
+          address: contractAddress.lotteryV1,
+          name: "_lotteries",
+          params: [currentLotteryId],
+        },
+        {
+          address: contractAddress.lotteryV1,
+          name: "totalTicketByUser",
+          params: [account, currentLotteryId],
+        },
+      ];
+
+      const _dataPromise = await Promise.all([
+        multicall(contractLotteryInstance.interface, calls, provider),
+      ]);
+
+      const _lotteries = _dataPromise[0][0];
+      const countTicket = _dataPromise[0][1];
 
       return {
-        currentLotteryId,
+        currentLotteryId: +currentLotteryId,
         maxNumberTicketsPerUser: 5000,
-        status: +res.status,
-        blockEnd: +res.blockEnd,
-        blockStart: +res.blockStart,
+        status: +_lotteries.status,
+        blockEnd: +_lotteries.blockEnd,
+        blockStart: +_lotteries.blockStart,
         totalReward,
-        finalNumber: +res.finalNumber,
+        finalNumber: +_lotteries.finalNumber,
+        ticketHasBuy: +countTicket,
       };
     }
   };
@@ -247,7 +267,10 @@ export const useActionLottery = () => {
     const instance = getInstance();
 
     try {
-      const tx = await instance.buyTickets(tickets);
+      const tx = await instance.buyTickets(tickets, {
+        gasLimit: 2000000,
+      });
+
       if (tx) {
         await tx?.wait();
       }
