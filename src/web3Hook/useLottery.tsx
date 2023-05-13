@@ -275,9 +275,7 @@ export const useActionLottery = () => {
     const instance = getInstance();
 
     try {
-      const tx = await instance.buyTickets(tickets, {
-        gasLimit: 40000000,
-      });
+      const tx = await instance.buyTickets(tickets);
 
       if (tx) {
         await tx?.wait();

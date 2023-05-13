@@ -54,7 +54,7 @@ const AppNextDraw = ({ blockEnd, blockStart }: AppNextDrawProps) => {
     <Box>
       <Flex alignItems={"center"} py={4} gap={1} justifyContent={"center"}>
         <Text fontSize={"md"} color={"#eba337"} fontWeight={700}>
-          Next Draw
+          Draw end in
         </Text>
 
         <Text fontSize={"md"} fontWeight={"700"}>
