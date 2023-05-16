@@ -71,7 +71,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
           .typeError("Amount must be a number")
           .nullable()
           .required("Amount is not valid")
-          .test("amount", "Max ticket is 100", (value: any) => +value < 100),
+          .test("amount", "Max ticket is 100", (value: any) => +value <= 100),
       })
     ),
   });
