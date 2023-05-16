@@ -71,7 +71,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
           .typeError("Amount must be a number")
           .nullable()
           .required("Amount is not valid")
-          .test("amount", "Max ticket is 5000", (value: any) => +value < 5000),
+          .test("amount", "Max ticket is 100", (value: any) => +value < 100),
       })
     ),
   });
@@ -188,7 +188,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
               </Box>
             </Box>
 
-            <Box py={2}>Max of 5000 tickets per purchase</Box>
+            <Box py={2}>Max of 5000 tickets per draw</Box>
 
             {/* <Box
               sx={{

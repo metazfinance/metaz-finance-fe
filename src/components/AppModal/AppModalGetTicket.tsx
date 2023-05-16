@@ -151,7 +151,6 @@ export const AppModalGetTicket = ({ onClose }: { onClose: () => void }) => {
               </Box>
             </Box>
 
-            <Box py={2}>Max of 5000 tickets per purchase</Box>
 
             {/* <Box
               sx={{

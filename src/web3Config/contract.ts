@@ -86,4 +86,4 @@ export const PRICE_TICKET = 0.1;
 export const MAX_TICKET_BUY = 5000;
 export const MAX_BUY_PER_TX = 100;
 
-export const NEXT_TIME_DRAW = 10 * 60 * 1000;
+export const NEXT_TIME_DRAW = 50 * 60 * 1000;
