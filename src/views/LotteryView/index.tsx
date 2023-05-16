@@ -1,7 +1,6 @@
 import { useGetCurrentLotteryInfo } from "@/web3Hook/useLottery";
 
-import AppNextDraw from "@/components/AppNextDraw";
-import BuyTicketsButton from "@/components/BuyTickets";
+import AppEndDraw from "@/components/AppEndDraw";
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
@@ -239,7 +238,7 @@ export default function LotteryView() {
                   {data?.totalReward / 1e18 || 0} {SYMBOL}
                 </Text>
                 {data && (
-                  <AppNextDraw
+                  <AppEndDraw
                     blockEnd={data?.blockEnd}
                     blockStart={data?.blockStart}
                   />
