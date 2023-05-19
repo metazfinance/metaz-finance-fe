@@ -1,10 +1,10 @@
+import { NONE_ADDRESS } from "@/web3Config/contract";
 import { useGetLeaderBoard } from "@/web3Hook/useLottery";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
   Flex,
-  Skeleton,
   Table,
   TableContainer,
   Tbody,
@@ -88,28 +88,23 @@ export default function LotteryLeaderBoard() {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {data?.leaderBoardList?.map((address, idx) => {
-                      const ticket = Number(data?.tickets?.[idx]);
-
-                      if (
-                        address === "0x0000000000000000000000000000000000000000"
-                      )
-                        return null;
+                    {data?.map((leader, idx) => {
+                      if (leader.address === NONE_ADDRESS) return null;
                       return (
-                        <Tr key={address + idx}>
+                        <Tr key={leader.address + idx}>
                           <Td>
                             <Flex alignItems={"center"}>
                               <Avatar
                                 size="sm"
-                                name={"METAZ Leader" + address}
+                                name={"METAZ Leader" + leader.address}
                               />
 
-                              <Text ml={2}>{address}</Text>
+                              <Text ml={2}>{leader.address}</Text>
                             </Flex>
                           </Td>
                           <Td>
                             <Text color="#4daf9e" fontWeight={700}>
-                              {ticket} tickets
+                              {leader.ticket} tickets
                             </Text>
                           </Td>
 

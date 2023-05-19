@@ -12,7 +12,8 @@ export const contractAddress = {
     lpToken: "0x9b030A3F6Ef4911391B067b65ae4719785B5a2D5",
     stakingLpTokenV1: "0xa612AAe296a28517b9250a0b28a6E2BEF73Db173",
     // lotteryV1: "0xCDAa98591CfF0367F3540E07B4433eA4e528eA8a",
-    lotteryV1: "0x3FD088685664837A47453D2e84bB3A4625bF18A4",
+    lotteryV1: "0x3E2e252E360d34573547A9DcaD17C927B8b1C9EB",
+    // lotteryV1: "0x6edbC18FBD6dD2940c2F52e3D965c69643b217bf",
 
     rewardContractStakeValidator: "0x11028621939D02093F809688384e662A06043dB7",
     stakingCetToValidator: "0x0000000000000000000000000000000000001000",
@@ -87,3 +88,10 @@ export const MAX_TICKET_BUY = 5000;
 export const MAX_BUY_PER_TX = 100;
 
 export const NEXT_TIME_DRAW = 10 * 60 * 1000;
+
+export const EXPLORE = {
+  53: "https://testnet.coinex.net",
+  52: "https://www.coinex.net",
+}[CHAIN_ID];
+
+export const NONE_ADDRESS = "0x0000000000000000000000000000000000000000";

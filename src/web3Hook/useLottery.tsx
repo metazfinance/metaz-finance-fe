@@ -101,16 +101,33 @@ export const useGetLeaderBoard = () => {
       multicall(contractLotteryInstance.interface, lotteryCalls, provider),
     ]);
 
-    const _data = {
-      leaderBoardList: _dataPromise[0][0][0],
-      tickets: _dataPromise[0][0][1],
-      totalReward: _dataPromise[0][1],
+    const leaderBoardList = _dataPromise[0][0];
+
+    const leaderBoardSort = (): { address: string; ticket: number }[] => {
+      const data = [];
+
+      for (let i = 0; i < leaderBoardList[0].length; i++) {
+        const object = {
+          address: leaderBoardList[0][i],
+          ticket: +leaderBoardList[1][i],
+        };
+
+        data.push(object);
+      }
+      return data.sort((a, b) => b.ticket - a.ticket);
     };
 
-    return _data as {
-      leaderBoardList: string[];
-      tickets: any[];
-    };
+    // const _data = {
+    //   leaderBoardList: leaderBoardSort(),
+    //   tickets: _dataPromise[0][0][1],
+    //   totalReward: _dataPromise[0][1],
+    // };
+
+    return leaderBoardSort();
+    // _data as {
+    //   leaderBoardList: { address: string; ticket: number }[];
+    //   tickets: any[];
+    // };
   };
 
   const _data = useQuery({

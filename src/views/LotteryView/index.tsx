@@ -1,12 +1,12 @@
 import { useGetCurrentLotteryInfo } from "@/web3Hook/useLottery";
 
 import AppEndDraw from "@/components/AppEndDraw";
+import { SYMBOL } from "@/web3Config/contract";
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import LotteryLeaderBoard from "./LotteryLeaderBoard";
 import LotteryPoolHistory from "./LotteryPoolHistory";
-import { SYMBOL } from "@/web3Config/contract";
 
 export default function LotteryView() {
   const { isLoading, data } = useGetCurrentLotteryInfo();

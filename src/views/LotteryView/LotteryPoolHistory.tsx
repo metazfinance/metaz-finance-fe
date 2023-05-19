@@ -1,19 +1,24 @@
 import { BallColor, BallWithNumber } from "@/components/BallSVG/Balls";
 import { formatCurrency } from "@/utils/ultities";
-import { BLOCK_PER_SECONDS, SYMBOL } from "@/web3Config/contract";
+import { BLOCK_PER_SECONDS, EXPLORE, SYMBOL } from "@/web3Config/contract";
 import {
   useGetCurrentLotteryInfo,
   useGetLotteryInfo,
   useLottery,
 } from "@/web3Hook/useLottery";
 import { useGetProvider } from "@/web3Provider/hookStore/useGetProvider";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  ExternalLinkIcon,
+} from "@chakra-ui/icons";
 
 import {
   Badge,
   Box,
   Button,
   Flex,
+  Icon,
   Skeleton,
   Table,
   TableContainer,
@@ -27,6 +32,7 @@ import {
 import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 import AppCheckClaimable from "./components/AppCheckClaimable";
+import Link from "next/link";
 
 export default function LotteryPoolHistory() {
   const provider = useGetProvider();
@@ -84,8 +90,6 @@ export default function LotteryPoolHistory() {
     setCurrentId(currentId + 1);
   };
 
-  // eslint-disable-next-line no-console
-  console.log(lotteryInfo, "datalotteryInfo");
   return (
     <section>
       <Box
@@ -128,15 +132,38 @@ export default function LotteryPoolHistory() {
                   <Text textAlign={"left"}>
                     {dayjs.unix(timeEnd).format("MMMM DD, YYYY HH:mm:ss")}
                   </Text>
-                </Box>
 
+                  <Skeleton isLoaded={!isLoading || !lotteryInfo}>
+                    <Box
+                      pt={2}
+                      display={{
+                        base: "block",
+                        md: "none",
+                      }}
+                    >
+                      {lotteryInfo && lotteryInfo?.status != 1 && (
+                        <AppCheckClaimable
+                          currentId={lotteryInfo.currentLotteryId}
+                        />
+                      )}
+                    </Box>
+                  </Skeleton>
+                </Box>
                 <Skeleton isLoaded={!isLoading || !lotteryInfo}>
-                  {lotteryInfo && lotteryInfo?.status != 1 && (
-                    <AppCheckClaimable
-                      currentId={lotteryInfo.currentLotteryId}
-                    />
-                  )}
+                  <Box
+                    display={{
+                      base: "none",
+                      md: "block",
+                    }}
+                  >
+                    {lotteryInfo && lotteryInfo?.status != 1 && (
+                      <AppCheckClaimable
+                        currentId={lotteryInfo.currentLotteryId}
+                      />
+                    )}
+                  </Box>
                 </Skeleton>
+
                 <Box>
                   <Flex gap={3}>
                     <Button
@@ -159,9 +186,28 @@ export default function LotteryPoolHistory() {
             </Skeleton>
           </Box>
           <Skeleton isLoaded={!isLoading}>
-            <Box m={3} borderRadius={7} bg="#383241" p={4} color={"white"}>
-              <Flex alignItems={"center"} gap={10}>
-                <Box>
+            <Box
+              m={3}
+              borderRadius={7}
+              bg="#383241"
+              p={4}
+              color={"white"}
+              position={"relative"}
+            >
+              <Flex
+                alignItems={"center"}
+                gap={10}
+                display={{
+                  base: "block",
+                  md: "flex",
+                }}
+              >
+                <Box
+                  pb={{
+                    base: 5,
+                    md: 0,
+                  }}
+                >
                   <Text>Winning Number</Text>
                   <Text>
                     <Badge>Latest</Badge>
@@ -169,6 +215,22 @@ export default function LotteryPoolHistory() {
                 </Box>
                 <Box>
                   <BallResult finalNumber={lotteryInfo?.finalNumber} />
+                </Box>
+
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 2,
+                    right: 2,
+                  }}
+                >
+                  <Link
+                    href={`${EXPLORE}/block/${+lotteryInfo?.blockEnd}`}
+                    passHref
+                    target="_blank"
+                  >
+                    <Icon as={ExternalLinkIcon} />
+                  </Link>
                 </Box>
               </Flex>
             </Box>
@@ -183,7 +245,7 @@ export default function LotteryPoolHistory() {
               borderRadius={10}
               border="1px solid #F8BE9D"
             >
-              <Box display={{ base: "none", md: "block" }}>
+              <Box>
                 <TableContainer>
                   <Table>
                     <Thead>

@@ -295,7 +295,11 @@ export const BallWithNumber: React.FC<
       alignItems="center"
       justifyContent="center"
       position="relative"
-      mx="12px"
+      mx={{
+        xs: "auto",
+        sm: "auto",
+        md: "10px",
+      }}
     >
       <BallComponent width={size ?? "52px"} height={size ?? "52px"} />
       <BallTextWrapper>

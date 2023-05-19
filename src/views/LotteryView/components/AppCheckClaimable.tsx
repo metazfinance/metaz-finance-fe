@@ -1,4 +1,5 @@
 import AppButton from "@/components/AppButton";
+import { formatCurrency } from "@/utils/ultities";
 import { useActionLottery, useGetLotteryInfo } from "@/web3Hook/useLottery";
 import {
   Badge,
@@ -52,7 +53,7 @@ const AppCheckClaimable = ({ currentId }: { currentId: number }) => {
               isLoading={claimReward.isLoading}
             >
               <Box>Reward:</Box>
-              <Text>{+reward / 1e18}</Text>
+              <Text>{`${formatCurrency(+reward / 1e18)}`}</Text>
             </AppButton>
           )}
         </Box>

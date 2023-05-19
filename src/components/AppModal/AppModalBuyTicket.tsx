@@ -79,7 +79,8 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
   const isDisable = isSubmitting || buyTickets.isLoading;
 
   const onSubmit = async (formValues: { amount: number }) => {
-    const tickets = randomTicketNumbers(formValues.amount);
+    const tickets =
+      [1, 2, 3, 4, 5, 6, 10] || randomTicketNumbers(formValues.amount);
     const totalPrice = PRICE_TICKET * +formValues.amount;
     if (totalPrice > +balance / 1e18) {
       toast({
@@ -104,7 +105,10 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
   const onSetMaxTicketBuy = () => {
     if (!currentLotteryInfo) return;
     const ticketHasBuy = MAX_TICKET_BUY - currentLotteryInfo.ticketHasBuy;
-    setValue("amount", ticketHasBuy > MAX_BUY_PER_TX ? MAX_BUY_PER_TX : ticketHasBuy);
+    setValue(
+      "amount",
+      ticketHasBuy > MAX_BUY_PER_TX ? MAX_BUY_PER_TX : ticketHasBuy
+    );
     return;
   };
 
@@ -190,7 +194,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
 
             <Box py={2}>Max of 5000 tickets per draw</Box>
 
-            {/* <Box
+            <Box
               sx={{
                 border: "1px solid #E2E8F0",
                 padding: 5,
@@ -209,7 +213,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                 </Flex>
               </Flex>
 
-              <Flex py={3} alignItems={"center"} justifyContent="space-between">
+              {/* <Flex py={3} alignItems={"center"} justifyContent="space-between">
                 <Box>-% Bulk discount</Box>
                 <Flex
                   alignItems={"center"}
@@ -218,7 +222,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                 >
                   <Text fontSize={12}>-{SYMBOL}</Text>
                 </Flex>
-              </Flex>
+              </Flex> */}
 
               <Flex
                 borderTop={"1px dashed"}
@@ -233,10 +237,13 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                   justifyContent="space-between"
                   gap={2}
                 >
-                  <Text fontSize={12}>-{SYMBOL}</Text>
+                  <Text fontSize={12} fontWeight={"bold"}>
+                    {" "}
+                    {currentLotteryInfo.ticketHasBuy} ticket
+                  </Text>
                 </Flex>
               </Flex>
-            </Box> */}
+            </Box>
 
             <Text textAlign={"right"}>
               Balance:

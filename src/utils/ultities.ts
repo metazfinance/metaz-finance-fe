@@ -64,7 +64,7 @@ export const formatCurrency = (price: string | number): unknown => {
   }
 
   if (currentPrice < 1 && currentPrice > 0) {
-    return currentPrice.toFixed(3);
+    return currentPrice.toFixed(2);
   }
   return 0;
 };
