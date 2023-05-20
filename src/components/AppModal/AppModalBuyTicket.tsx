@@ -79,8 +79,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
   const isDisable = isSubmitting || buyTickets.isLoading;
 
   const onSubmit = async (formValues: { amount: number }) => {
-    const tickets =
-      [1, 2, 3, 4, 5, 6, 10] || randomTicketNumbers(formValues.amount);
+    const tickets = randomTicketNumbers(formValues.amount);
     const totalPrice = PRICE_TICKET * +formValues.amount;
     if (totalPrice > +balance / 1e18) {
       toast({
@@ -129,23 +128,6 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                 background: "orange.900",
               }}
             >
-              <Flex alignItems={"center"} justifyContent="space-between">
-                <Box>Cost</Box>
-                <Flex
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  gap={2}
-                >
-                  <Image
-                    src="/assets/image/logo.png"
-                    alt="METAZ"
-                    width={26}
-                    height={26}
-                  />
-                  <Text fontWeight={"bold"}>{SYMBOL}</Text>
-                </Flex>
-              </Flex>
-
               <Box>
                 <Box py={4}>
                   <Flex alignItems={"center"} gap={2}>
@@ -194,36 +176,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
 
             <Box py={2}>Max of 5000 tickets per draw</Box>
 
-            <Box
-              sx={{
-                border: "1px solid #E2E8F0",
-                padding: 5,
-                borderRadius: 5,
-                background: "orange.900",
-              }}
-            >
-              <Flex alignItems={"center"} justifyContent="space-between">
-                <Box>Cost ({SYMBOL} )</Box>
-                <Flex
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  gap={2}
-                >
-                  <Text fontSize={12}>-{SYMBOL}</Text>
-                </Flex>
-              </Flex>
-
-              {/* <Flex py={3} alignItems={"center"} justifyContent="space-between">
-                <Box>-% Bulk discount</Box>
-                <Flex
-                  alignItems={"center"}
-                  justifyContent="space-between"
-                  gap={2}
-                >
-                  <Text fontSize={12}>-{SYMBOL}</Text>
-                </Flex>
-              </Flex> */}
-
+            <Box>
               <Flex
                 borderTop={"1px dashed"}
                 borderColor={"green.900"}
@@ -231,7 +184,7 @@ export const AppModalBuyTicket = ({ onClose }: { onClose: () => void }) => {
                 alignItems={"center"}
                 justifyContent="space-between"
               >
-                <Box>You Pay</Box>
+                <Box>You bought</Box>
                 <Flex
                   alignItems={"center"}
                   justifyContent="space-between"

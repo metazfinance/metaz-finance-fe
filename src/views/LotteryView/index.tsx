@@ -66,153 +66,160 @@ export default function LotteryView() {
         sx={{ background: "#FCDF79" }}
         p={0}
       >
-        <motion.div
-          animate={img1Animation}
-          onMouseMove={(e) => handleMouseMove(e)}
+        <Box
+          display={{
+            base: "none",
+            md: "block",
+          }}
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "10%",
-              left: "10%",
-            }}
+          <motion.div
+            animate={img1Animation}
+            onMouseMove={(e) => handleMouseMove(e)}
           >
-            <Image
-              src="/assets/image/lottery/die1.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>{" "}
-        </motion.div>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "10%",
+                left: "10%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die1.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>{" "}
+          </motion.div>
 
-        <motion.div onMouseMove={(e) => handleMouseMove(e)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "10%",
-              right: "10%",
-            }}
-          >
-            <Image
-              src="/assets/image/lottery/die2.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>{" "}
-        </motion.div>
+          <motion.div onMouseMove={(e) => handleMouseMove(e)}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "10%",
+                right: "10%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die2.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>{" "}
+          </motion.div>
 
-        <motion.div
-          animate={img3Animation}
-          onMouseMove={(e) => handleMouseMove(e)}
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "20%",
-              right: "10%",
-            }}
+          <motion.div
+            animate={img3Animation}
+            onMouseMove={(e) => handleMouseMove(e)}
           >
-            <Image
-              src="/assets/image/lottery/die3.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>{" "}
-        </motion.div>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "20%",
+                right: "10%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die3.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>{" "}
+          </motion.div>
 
-        <motion.div onMouseMove={(e) => handleMouseMove(e)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "10%",
-              right: "10%",
-            }}
-          >
-            <Image
-              src="/assets/image/lottery/die6.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>{" "}
-        </motion.div>
+          <motion.div onMouseMove={(e) => handleMouseMove(e)}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "10%",
+                right: "10%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die6.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>{" "}
+          </motion.div>
 
-        <motion.div onMouseMove={(e) => handleMouseMove(e)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "25%",
-              right: "10%",
-            }}
-          >
-            <Image
-              src="/assets/image/lottery/die4.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>{" "}
-        </motion.div>
+          <motion.div onMouseMove={(e) => handleMouseMove(e)}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "25%",
+                right: "10%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die4.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>{" "}
+          </motion.div>
 
-        <motion.div
-          animate={img3Animation}
-          onMouseMove={(e) => handleMouseMove(e)}
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "28%",
-              right: "20%",
-            }}
+          <motion.div
+            animate={img3Animation}
+            onMouseMove={(e) => handleMouseMove(e)}
           >
-            <Image
-              src="/assets/image/lottery/die4.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>
-        </motion.div>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "28%",
+                right: "20%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die4.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>
+          </motion.div>
 
-        <motion.div onMouseMove={(e) => handleMouseMove(e)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "28%",
-              left: "20%",
-            }}
-          >
-            <Image
-              src="/assets/image/lottery/die5.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>
-        </motion.div>
+          <motion.div onMouseMove={(e) => handleMouseMove(e)}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "28%",
+                left: "20%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die5.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>
+          </motion.div>
 
-        <motion.div
-          animate={img1Animation}
-          onMouseMove={(e) => handleMouseMove(e)}
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "38%",
-              left: "20%",
-            }}
+          <motion.div
+            animate={img1Animation}
+            onMouseMove={(e) => handleMouseMove(e)}
           >
-            <Image
-              src="/assets/image/lottery/die6.png"
-              alt="lottery"
-              width={50}
-              height={50}
-            />
-          </Box>
-        </motion.div>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "38%",
+                left: "20%",
+              }}
+            >
+              <Image
+                src="/assets/image/lottery/die6.png"
+                alt="lottery"
+                width={50}
+                height={50}
+              />
+            </Box>
+          </motion.div>
+        </Box>
 
         <Flex minH={500} justifyContent={"center"} alignItems={"center"}>
           <Box />
