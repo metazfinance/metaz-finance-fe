@@ -254,18 +254,12 @@ export default function LotteryPoolHistory() {
                           <Text fontSize={12}>Prize Pot</Text>
                         </Th>
                         <Th>
-                          <Text color="#F8BE9D">
-                            {`${formatCurrency(+lotteryInfo?.totalReward)}`}{" "}
-                            {SYMBOL}
-                          </Text>
+                          <Text color="#F8BE9D">Prize pool allocation</Text>
                         </Th>
                         <Th textAlign={"left"} color="#F8BE9D">
                           <Text fontSize={12}>Ticket win this round</Text>
                         </Th>
-                        <Th textAlign={"right"}>
-                          <Text fontSize={12}>Tiket in round:</Text>
-                          <Text>Total roll over: $7,448.2</Text>
-                        </Th>
+
                         <Th />
                       </Tr>
                     </Thead>
@@ -342,6 +336,25 @@ export default function LotteryPoolHistory() {
                           </Text>
                         </Td>
 
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}></Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}></Text>
+                        </Td>
+                      </Tr>
+                      <Tr>
+                        <Td>
+                          <Text fontWeight={700} color="#ed4b9e">
+                            Total reward
+                          </Text>
+                        </Td>
+                        <Td>
+                          <Text color="#4daf9e" fontWeight={700}>
+                            {`${formatCurrency(+lotteryInfo?.totalReward)}`}{" "}
+                            ( {SYMBOL} )
+                          </Text>
+                        </Td>
                         <Td>
                           <Text color="#4daf9e" fontWeight={700}></Text>
                         </Td>
