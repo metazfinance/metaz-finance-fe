@@ -1,4 +1,4 @@
-export const CHAIN_ID = 53;
+export const CHAIN_ID = 52;
 
 // process.env.NEXT_PUBLIC_CHAIN_ID!;
 // || process.env.NEXT_PUBLIC_CHAIN_ID || 53;
@@ -11,8 +11,6 @@ export const contractAddress = {
 
     lpToken: "0x9b030A3F6Ef4911391B067b65ae4719785B5a2D5",
     stakingLpTokenV1: "0xa612AAe296a28517b9250a0b28a6E2BEF73Db173",
-    // lotteryV1: "0xCDAa98591CfF0367F3540E07B4433eA4e528eA8a",
-    // lotteryV1: "0xcD1c2dAEe34cD1593d275caf6Ac05049fa27C3c6",
     lotteryV1: "0xE77B3bAc954dE593FF10C9cf59C218aef4Da787a",
 
     rewardContractStakeValidator: "0x11028621939D02093F809688384e662A06043dB7",
@@ -35,7 +33,7 @@ export const contractAddress = {
     lpToken: process.env.NEXT_PUBLIC_LP_TOKEN!,
     stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
 
-    lotteryV1: "0x8C7d481D4980F7734220080c17458De6Eef4E344",
+    lotteryV1: "0x5b9Da8d38030a11B6941325b93C6a66E2c488A71",
     rewardContractStakeValidator:
       process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!,
     stakingCetToValidator:
@@ -43,6 +41,7 @@ export const contractAddress = {
     validator: process.env.NEXT_PUBLIC_VALIDATOR!,
 
     ERC20: process.env.NEXT_PUBLIC_ERC20!,
+    ERC20_LOTTERY: "0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac",
 
     COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
     CONTRACT_CALCULATOR_REWARD:
@@ -87,7 +86,7 @@ export const PRICE_TICKET = 0.1;
 export const MAX_TICKET_BUY = 5000;
 export const MAX_BUY_PER_TX = 100;
 
-export const NEXT_TIME_DRAW = 10 * 60 * 1000;
+export const NEXT_TIME_DRAW = 30 * 60 * 1000;
 
 export const EXPLORE = {
   53: "https://testnet.coinex.net",
