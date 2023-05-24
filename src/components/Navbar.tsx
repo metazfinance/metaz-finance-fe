@@ -24,7 +24,7 @@ const Links = [
     name: "Stake METAZ",
     href: "/token",
   },
-  
+
   {
     name: "Lottery",
     href: "/lottery",

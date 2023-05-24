@@ -29,6 +29,8 @@ export interface LpStakingInterface extends utils.Interface {
     "LPstakeable()": FunctionFragment;
     "LPstakedBalance(address)": FunctionFragment;
     "LPtoken()": FunctionFragment;
+    "LPtotalStaked()": FunctionFragment;
+    "LPtotalStaker()": FunctionFragment;
     "claimReward()": FunctionFragment;
     "closeLPstaking()": FunctionFragment;
     "openLPstaking()": FunctionFragment;
@@ -47,6 +49,8 @@ export interface LpStakingInterface extends utils.Interface {
       | "LPstakeable"
       | "LPstakedBalance"
       | "LPtoken"
+      | "LPtotalStaked"
+      | "LPtotalStaker"
       | "claimReward"
       | "closeLPstaking"
       | "openLPstaking"
@@ -72,6 +76,14 @@ export interface LpStakingInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "LPtoken", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "LPtotalStaked",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "LPtotalStaker",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "claimReward",
     values?: undefined
@@ -120,6 +132,14 @@ export interface LpStakingInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "LPtoken", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "LPtotalStaked",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "LPtotalStaker",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "claimReward",
     data: BytesLike
@@ -190,6 +210,10 @@ export interface LpStaking extends BaseContract {
 
     LPtoken(overrides?: CallOverrides): Promise<[string]>;
 
+    LPtotalStaked(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    LPtotalStaker(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     claimReward(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -244,6 +268,10 @@ export interface LpStaking extends BaseContract {
   ): Promise<BigNumber>;
 
   LPtoken(overrides?: CallOverrides): Promise<string>;
+
+  LPtotalStaked(overrides?: CallOverrides): Promise<BigNumber>;
+
+  LPtotalStaker(overrides?: CallOverrides): Promise<BigNumber>;
 
   claimReward(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -300,6 +328,10 @@ export interface LpStaking extends BaseContract {
 
     LPtoken(overrides?: CallOverrides): Promise<string>;
 
+    LPtotalStaked(overrides?: CallOverrides): Promise<BigNumber>;
+
+    LPtotalStaker(overrides?: CallOverrides): Promise<BigNumber>;
+
     claimReward(overrides?: CallOverrides): Promise<void>;
 
     closeLPstaking(overrides?: CallOverrides): Promise<void>;
@@ -349,6 +381,10 @@ export interface LpStaking extends BaseContract {
     ): Promise<BigNumber>;
 
     LPtoken(overrides?: CallOverrides): Promise<BigNumber>;
+
+    LPtotalStaked(overrides?: CallOverrides): Promise<BigNumber>;
+
+    LPtotalStaker(overrides?: CallOverrides): Promise<BigNumber>;
 
     claimReward(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -405,6 +441,10 @@ export interface LpStaking extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     LPtoken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    LPtotalStaked(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    LPtotalStaker(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     claimReward(
       overrides?: Overrides & { from?: PromiseOrValue<string> }

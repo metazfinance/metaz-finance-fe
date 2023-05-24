@@ -29,10 +29,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import dayjs from "dayjs";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import AppCheckClaimable from "./components/AppCheckClaimable";
-import Link from "next/link";
 
 export default function LotteryPoolHistory() {
   const provider = useGetProvider();
@@ -129,9 +128,9 @@ export default function LotteryPoolHistory() {
                       <Badge>{lotteryInfo?.currentLotteryId}</Badge>
                     </Skeleton>
                   </Flex>
-                  <Text textAlign={"left"}>
+                  {/* <Text textAlign={"left"}>
                     {dayjs.unix(timeEnd).format("MMMM DD, YYYY HH:mm:ss")}
-                  </Text>
+                  </Text> */}
 
                   <Skeleton isLoaded={!isLoading || !lotteryInfo}>
                     <Box

@@ -30,10 +30,12 @@ export const contractAddress = {
     stakingTokenV2: process.env.NEXT_PUBLIC_STAKINGV2!,
     stakingTokenV3: process.env.NEXT_PUBLIC_STAKINGV3!,
 
-    lpToken: process.env.NEXT_PUBLIC_LP_TOKEN!,
-    stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
+    lpToken: "0xFF46d684b4Fecf08D22591Abd0aa5701dE85e97C",
+    // stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
+    stakingLpTokenV1: "0x6d6d4712F125790A8e49E1368E88742D5563fF3c",
 
-    lotteryV1: "0x5b9Da8d38030a11B6941325b93C6a66E2c488A71",
+    lotteryV1: process.env.NEXT_PUBLIC_LOTTERY!,
+    // "0x5b9Da8d38030a11B6941325b93C6a66E2c488A71",
     rewardContractStakeValidator:
       process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!,
     stakingCetToValidator:
@@ -41,7 +43,8 @@ export const contractAddress = {
     validator: process.env.NEXT_PUBLIC_VALIDATOR!,
 
     ERC20: process.env.NEXT_PUBLIC_ERC20!,
-    ERC20_LOTTERY: "0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac",
+    ERC20_LOTTERY: process.env.NEXT_PUBLIC_ERC20_LOTTERY!,
+    // "0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac",
 
     COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
     CONTRACT_CALCULATOR_REWARD:

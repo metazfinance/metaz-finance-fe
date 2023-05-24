@@ -119,6 +119,7 @@ export const useBalanceErc20 = (
   const { balanceOf } = useERC20Action(token);
   const account = useGetAccount();
 
+  const [symbol, setSymbol] = useState<string>("");
   const getBalance = async () => {
     if (account || address) {
       disclosure.onOpen();
