@@ -1,4 +1,6 @@
-export const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID!;
+export const CHAIN_ID = 52;
+
+// process.env.NEXT_PUBLIC_CHAIN_ID!;
 // || process.env.NEXT_PUBLIC_CHAIN_ID || 53;
 
 export const contractAddress = {
@@ -9,7 +11,7 @@ export const contractAddress = {
 
     lpToken: "0x9b030A3F6Ef4911391B067b65ae4719785B5a2D5",
     stakingLpTokenV1: "0xa612AAe296a28517b9250a0b28a6E2BEF73Db173",
-    lotteryV1: "0xCDAa98591CfF0367F3540E07B4433eA4e528eA8a",
+    lotteryV1: "0xE77B3bAc954dE593FF10C9cf59C218aef4Da787a",
 
     rewardContractStakeValidator: "0x11028621939D02093F809688384e662A06043dB7",
     stakingCetToValidator: "0x0000000000000000000000000000000000001000",
@@ -17,6 +19,8 @@ export const contractAddress = {
 
     // ERC20: "0xE88c6353035EB391Ef3504901175f615742336Df",
     ERC20: "0xDE2e330A7BbA9363Bc0DD60A669769C51dD27864",
+    ERC20_LOTTERY: "0x5872776d48a7338e3600b87C9F60C48BF47Cc0f7",
+    CONTRACT_CALCULATOR_REWARD: "0xebeDB77b225C461f4823dA085F087Dc591302937",
 
     COIN_EX_VALIDATOR: "0xebeDB77b225C461f4823dA085F087Dc591302937",
     multicall: "0x409525b2412c472fe5AAA1bFf2C4E2DA62677946",
@@ -26,10 +30,12 @@ export const contractAddress = {
     stakingTokenV2: process.env.NEXT_PUBLIC_STAKINGV2!,
     stakingTokenV3: process.env.NEXT_PUBLIC_STAKINGV3!,
 
-    lpToken: process.env.NEXT_PUBLIC_LP_TOKEN!,
-    stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
+    lpToken: "0xFF46d684b4Fecf08D22591Abd0aa5701dE85e97C",
+    // stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
+    stakingLpTokenV1: "0x6d6d4712F125790A8e49E1368E88742D5563fF3c",
 
-    lotteryV1: "0x8C7d481D4980F7734220080c17458De6Eef4E344",
+    lotteryV1: process.env.NEXT_PUBLIC_LOTTERY!,
+    // "0x5b9Da8d38030a11B6941325b93C6a66E2c488A71",
     rewardContractStakeValidator:
       process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!,
     stakingCetToValidator:
@@ -37,9 +43,12 @@ export const contractAddress = {
     validator: process.env.NEXT_PUBLIC_VALIDATOR!,
 
     ERC20: process.env.NEXT_PUBLIC_ERC20!,
+    ERC20_LOTTERY: process.env.NEXT_PUBLIC_ERC20_LOTTERY!,
+    // "0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac",
 
     COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
-    CONTRACT_CALCULATOR_REWARD: process.env.NEXT_PUBLIC_CONTRACT_CALCULATOR_REWARD!,
+    CONTRACT_CALCULATOR_REWARD:
+      process.env.NEXT_PUBLIC_CONTRACT_CALCULATOR_REWARD!,
 
     multicall: "0x63842f90D8f1BcCAe36eb67C91270e1Df09613a8",
   },
@@ -73,3 +82,18 @@ export const PUBLIC_RPC = {
   53: "https://testnet-rpc.coinex.net",
   52: "https://rpc.coinex.net",
 }[CHAIN_ID];
+
+export const BLOCK_PER_SECONDS = 3000;
+
+export const PRICE_TICKET = 0.1;
+export const MAX_TICKET_BUY = 5000;
+export const MAX_BUY_PER_TX = 100;
+
+export const NEXT_TIME_DRAW = 30 * 60 * 1000;
+
+export const EXPLORE = {
+  53: "https://testnet.coinex.net",
+  52: "https://www.coinex.net",
+}[CHAIN_ID];
+
+export const NONE_ADDRESS = "0x0000000000000000000000000000000000000000";

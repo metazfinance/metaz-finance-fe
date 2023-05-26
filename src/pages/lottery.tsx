@@ -1,5 +1,5 @@
-import { Box } from "@chakra-ui/react";
+import LotteryView from "@/views/LotteryView/index";
 
 export default function Lottery() {
-  return <Box>Coming soon</Box>;
+  return <LotteryView />;
 }

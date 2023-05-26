@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export { Lottery__factory } from "./Lottery__factory";
+export { LpStaking__factory } from "./LpStaking__factory";
 export { StakingRewards__factory } from "./StakingRewards__factory";
 export { StakingToValidator__factory } from "./StakingToValidator__factory";
 export { TokenStaking__factory } from "./TokenStaking__factory";

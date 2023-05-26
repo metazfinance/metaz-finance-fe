@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Lottery } from "./Lottery";
+export type { LpStaking } from "./LpStaking";
 export type { StakingRewards } from "./StakingRewards";
 export type { StakingToValidator } from "./StakingToValidator";
 export type { TokenStaking } from "./TokenStaking";
@@ -10,6 +11,7 @@ export type { Multicall } from "./Multicall";
 export type { Reward } from "./Reward";
 export * as factories from "./factories";
 export { Lottery__factory } from "./factories/Lottery__factory";
+export { LpStaking__factory } from "./factories/LpStaking__factory";
 export { StakingRewards__factory } from "./factories/StakingRewards__factory";
 export { StakingToValidator__factory } from "./factories/StakingToValidator__factory";
 export { TokenStaking__factory } from "./factories/TokenStaking__factory";
