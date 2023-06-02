@@ -112,3 +112,15 @@ button {
   width: 100%;
   text-align: center !important;
 }
+
+@media (max-width: 455px) {
+  .ball-result {
+    width: 40px;
+  }
+}
+
+@media (max-width: 320px) {
+  .ball-result {
+    width: 30px;
+  }
+}

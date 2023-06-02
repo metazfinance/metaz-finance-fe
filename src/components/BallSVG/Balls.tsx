@@ -5,7 +5,7 @@ export const PinkBall: React.FC<React.PropsWithChildren<SvgProps>> = (
   props
 ) => {
   return (
-    <Svg viewBox="0 0 32 32" {...props}>
+    <Svg viewBox="0 0 32 32" {...props} className="ball-result">
       <circle cx="16" cy="16" r="16" fill="#D750B2" />
       <g style={{ mixBlendMode: "multiply" }} opacity="0.1">
         <path
@@ -47,7 +47,7 @@ export const LilacBall: React.FC<React.PropsWithChildren<SvgProps>> = (
   props
 ) => {
   return (
-    <Svg viewBox="0 0 32 32" {...props}>
+    <Svg viewBox="0 0 32 32" {...props} className="ball-result">
       <circle cx="16" cy="16" r="16" fill="#A881FC" />
       <g style={{ mixBlendMode: "multiply" }} opacity="0.1">
         <path
@@ -89,7 +89,7 @@ export const TealBall: React.FC<React.PropsWithChildren<SvgProps>> = (
   props
 ) => {
   return (
-    <Svg viewBox="0 0 32 32" {...props}>
+    <Svg viewBox="0 0 32 32" {...props} className="ball-result">
       <circle cx="16" cy="16" r="16" fill="#1FC7D4" />
       <g style={{ mixBlendMode: "multiply" }} opacity="0.1">
         <path
@@ -131,7 +131,7 @@ export const AquaBall: React.FC<React.PropsWithChildren<SvgProps>> = (
   props
 ) => {
   return (
-    <Svg viewBox="0 0 32 32" {...props}>
+    <Svg viewBox="0 0 32 32" {...props} className="ball-result">
       <circle cx="16" cy="16" r="16" fill="#31D0AA" />
       <g style={{ mixBlendMode: "multiply" }} opacity="0.1">
         <path
@@ -173,7 +173,7 @@ export const GreenBall: React.FC<React.PropsWithChildren<SvgProps>> = (
   props
 ) => {
   return (
-    <Svg viewBox="0 0 32 32" {...props}>
+    <Svg viewBox="0 0 32 32" {...props} className="ball-result">
       <circle cx="16" cy="16" r="16" fill="#93D45A" />
       <g style={{ mixBlendMode: "multiply" }} opacity="0.1">
         <path
@@ -215,7 +215,7 @@ export const YellowBall: React.FC<React.PropsWithChildren<SvgProps>> = (
   props
 ) => {
   return (
-    <Svg viewBox="0 0 32 32" {...props}>
+    <Svg viewBox="0 0 32 32" {...props} className="ball-result">
       <circle cx="16" cy="16" r="16" fill="#FFC43C" />
       <g style={{ mixBlendMode: "multiply" }} opacity="0.1">
         <path
@@ -295,7 +295,10 @@ export const BallWithNumber: React.FC<
       alignItems="center"
       justifyContent="center"
       position="relative"
-      mx="12px"
+      mx={{
+        base: "5px",
+        // md: "15px",
+      }}
     >
       <BallComponent width={size ?? "52px"} height={size ?? "52px"} />
       <BallTextWrapper>
