@@ -40,4 +40,6 @@ interface IPoolLpStake {
   reward: number;
   isStakeable: boolean;
   LPtotalStaked: number;
+  symbol_lp: string;
+  contractLP: string;
 }

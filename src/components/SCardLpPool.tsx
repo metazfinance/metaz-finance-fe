@@ -1,5 +1,5 @@
 import { formatCurrency, getBalanceLocalString } from "@/utils/ultities";
-import { SYMBOL, SYMBOL_LP, contractAddress } from "@/web3Config/contract";
+import { SYMBOL } from "@/web3Config/contract";
 import { useActionInfoValidator } from "@/web3Hook/useStakeCetToValidator";
 import { useGetAccount } from "@/web3Provider/hookStore/useGetProvider";
 
@@ -40,7 +40,7 @@ import SConnectButton from "./SConnectButton";
 import SCardSkeleton from "./SSkeleton/SCardSkeleton";
 
 export const WrapperSCardLpPool = () => {
-  const { isLoading, data: pool } = useStakeLp();
+  const { isLoading, data: pools } = useStakeLp();
 
   return (
     <Box>
@@ -55,7 +55,11 @@ export const WrapperSCardLpPool = () => {
         {isLoading ? (
           <SCardSkeleton length={1} />
         ) : (
-          <SCardLpPool pool={pool as any} />
+          <>
+            {pools.map((pool, idx) => {
+              return <SCardLpPool key={idx} pool={pool} />;
+            })}
+          </>
         )}
       </Flex>
     </Box>
@@ -81,12 +85,12 @@ const SCardLpPool = ({ pool }: { pool: IPoolLpStake }) => {
             background={"green.800"}
           >
             <Box>
-              <Text>Stake MTZ/CET</Text>
+              <Text>Stake {pool.symbol_lp}</Text>
               <Text fontSize={13}>Stake, Earn – And more!</Text>
             </Box>
             <Box>
               <Avatar
-                name="MTZ/CET"
+                name={"M"}
                 bg="transparent"
                 color="#24cccd"
                 border="1px"
@@ -120,7 +124,7 @@ const SCardLpPool = ({ pool }: { pool: IPoolLpStake }) => {
                 {+pool.balanceStaked > 0
                   ? getBalanceLocalString(pool.balanceStaked)
                   : 0}{" "}
-                {SYMBOL_LP}
+                {pool.symbol_lp}
               </Box>
             </Flex>
 
@@ -130,11 +134,11 @@ const SCardLpPool = ({ pool }: { pool: IPoolLpStake }) => {
                 {+pool.LPtotalStaked > 0
                   ? getBalanceLocalString(pool.LPtotalStaked)
                   : 0}{" "}
-                {SYMBOL_LP}
+                {pool.symbol_lp}
               </Box>
             </Flex>
 
-            <GroupAction />
+            <GroupAction pool={pool} />
           </Box>
         </Box>
       </Box>
@@ -142,16 +146,13 @@ const SCardLpPool = ({ pool }: { pool: IPoolLpStake }) => {
   );
 };
 
-export default SCardLpPool;
-
-const GroupAction = () => {
-  const { data: pool } = useStakeLp();
+const GroupAction = ({ pool }: { pool: IPoolLpStake }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const modalUnstake = useDisclosure();
 
   const address = useGetAccount();
 
-  const { balance } = useBalanceErc20(contractAddress.ERC_LP_TOKEN, address);
+  const { balance } = useBalanceErc20(pool.contractLP, address);
 
   const { claimReward } = useActionInfoValidator();
 
@@ -214,6 +215,7 @@ const GroupAction = () => {
                       w="100%"
                       colorScheme={"blue"}
                       onClick={onOpen}
+                      disabled={!pool.isStakeable}
                       isDisabled={!hasEnoughFund}
                     >
                       Stake
@@ -227,12 +229,16 @@ const GroupAction = () => {
           <SConnectButton />
         )}
       </Box>
-
-      <ModalStake isOpen={isOpen} onClose={onClose} />
-      <ModalWithdraw
-        isOpen={modalUnstake.isOpen}
-        onClose={modalUnstake.onClose}
-      />
+      {pool && (
+        <>
+          <ModalStake isOpen={isOpen} onClose={onClose} pool={pool} />
+          <ModalWithdraw
+            pool={pool}
+            isOpen={modalUnstake.isOpen}
+            onClose={modalUnstake.onClose}
+          />
+        </>
+      )}
     </>
   );
 };
@@ -240,21 +246,23 @@ const GroupAction = () => {
 const ModalStake = ({
   isOpen,
   onClose,
+  pool,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  pool: IPoolLpStake;
 }) => {
   const address = useGetAccount();
   const { isFetching, balance, symbol } = useBalanceErc20(
-    contractAddress.ERC_LP_TOKEN,
+    pool.contractLP,
     address
   );
   const { isApprove, approve, isApproving } = useApproveERC20(
-    contractAddress.stakingLpTokenV1,
-    contractAddress.ERC_LP_TOKEN
+    pool.contract,
+    pool.contractLP
   );
 
-  const { stake, claimReward, withdrawLP } = useActionStakeLpToken();
+  const { stake } = useActionStakeLpToken(pool.contract);
 
   useEffect(() => {
     reset();
@@ -289,7 +297,7 @@ const ModalStake = ({
   };
 
   const hasEnoughFund = useMemo(() => {
-    return balance ? +balance >= BIG_AMOUNT_CHEAT : false;
+    return balance ? +balance / 1e18 >= BIG_AMOUNT_CHEAT : false;
   }, [balance]);
 
   const isDisable = isSubmitting || stake.isLoading;
@@ -415,24 +423,24 @@ const ModalStake = ({
 const ModalWithdraw = ({
   isOpen,
   onClose,
+  pool,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  pool: IPoolLpStake;
 }) => {
   const address = useGetAccount();
   const { isFetching, balance, symbol } = useBalanceErc20(
-    contractAddress.ERC_LP_TOKEN,
+    pool.contractLP,
     address
   );
 
-  const { data: pool } = useStakeLp();
-
   const { isApprove, approve, isApproving } = useApproveERC20(
-    contractAddress.stakingLpTokenV1,
-    contractAddress.ERC_LP_TOKEN
+    pool.contract,
+    pool.contractLP
   );
 
-  const { claimReward, withdrawLP } = useActionStakeLpToken();
+  const { withdrawLP } = useActionStakeLpToken(pool.contract);
 
   const {
     handleSubmit,
@@ -463,11 +471,12 @@ const ModalWithdraw = ({
   };
 
   const hasEnoughFund = useMemo(() => {
-    return balance ? +balance > BIG_AMOUNT_CHEAT : false;
+    return balance ? +balance / 1e18 >= BIG_AMOUNT_CHEAT : false;
   }, [balance]);
 
   const isDisable = isSubmitting || withdrawLP.isLoading;
 
+  if (!pool) return null;
   return (
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -588,3 +597,5 @@ const ModalWithdraw = ({
     </Modal>
   );
 };
+
+export default SCardLpPool;

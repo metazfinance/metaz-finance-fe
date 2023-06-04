@@ -26,26 +26,25 @@ export const contractAddress = {
     multicall: "0x409525b2412c472fe5AAA1bFf2C4E2DA62677946",
   },
   52: {
-    stakingTokenV1: process.env.NEXT_PUBLIC_STAKINGV1!,
+    stakingTokenV1: process.env.NEXT_PUBLIC_STAKINGV1!, // contract staking
     stakingTokenV2: process.env.NEXT_PUBLIC_STAKINGV2!,
     stakingTokenV3: process.env.NEXT_PUBLIC_STAKINGV3!,
 
-    // lpToken: "0xFF46d684b4Fecf08D22591Abd0aa5701dE85e97C",
-    // stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKE_LP_TOKENV1!,
-    stakingLpTokenV1: "0x6d6d4712F125790A8e49E1368E88742D5563fF3c",
-    ERC_LP_TOKEN: "0xFF46d684b4Fecf08D22591Abd0aa5701dE85e97C",
+    stakingLpTokenV1: process.env.NEXT_PUBLIC_STAKING_LP_TOKENV1!, // contract stake LP token
+    stakingLpTokenV2: process.env.NEXT_PUBLIC_STAKING_LP_TOKENV2!,
+    ERC_LP_TOKEN: process.env.NEXT_PUBLIC_ERC_LP_CET_MTZ!, // contract LP token
+    ERC_LP_TOKEN_STABLE: process.env.NEXT_PUBLIC_ERC_LP_USDT_MTZ!,
 
-    lotteryV1: process.env.NEXT_PUBLIC_LOTTERY!,
-    // "0x5b9Da8d38030a11B6941325b93C6a66E2c488A71",
+    lotteryV1: process.env.NEXT_PUBLIC_LOTTERY!, // contract lottery
+
     rewardContractStakeValidator:
-      process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!,
+      process.env.NEXT_PUBLIC_REWARD_CONTRACT_STAKE_VALIDATOR!, // contract get reward stake validator
     stakingCetToValidator:
-      process.env.NEXT_PUBLIC_REWARD_STAKE_CET_TO_VALIDATOR!,
-    validator: process.env.NEXT_PUBLIC_VALIDATOR!,
+      process.env.NEXT_PUBLIC_REWARD_STAKE_CET_TO_VALIDATOR!, // contract stake CET to validator
+    validator: process.env.NEXT_PUBLIC_VALIDATOR!, // contract validator
 
-    ERC20: process.env.NEXT_PUBLIC_ERC20!,
-    ERC20_LOTTERY: process.env.NEXT_PUBLIC_ERC20_LOTTERY!,
-    // "0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac",
+    ERC20: process.env.NEXT_PUBLIC_ERC20!, // contract ERC20 MTZ
+    ERC20_LOTTERY: process.env.NEXT_PUBLIC_ERC20_LOTTERY!, // contract ERC20 lottery
 
     COIN_EX_VALIDATOR: process.env.NEXT_PUBLIC_COIN_EX_VALIDATOR!,
     CONTRACT_CALCULATOR_REWARD:
