@@ -20,6 +20,10 @@ export const useERC20Action = (token?: string) => {
     token || contractAddress.ERC20,
     provider.getSigner()
   );
+  const symbol = useCallback(async () => {
+    const symbol = await contractInstance?.symbol();
+    return symbol;
+  }, [account]);
 
   const balanceOf = useCallback(
     async (account: IAddress) => {
@@ -77,6 +81,7 @@ export const useERC20Action = (token?: string) => {
   );
 
   return {
+    getSymbol: symbol,
     balanceOf,
     getAllowance,
     onApprove,
@@ -116,7 +121,9 @@ export const useBalanceErc20 = (
 ) => {
   const disclosure = useDisclosure();
   const [balance, setBalance] = useState<BigNumber>(BigNumber.from(0));
-  const { balanceOf } = useERC20Action(token);
+  const [symbol, setSymbol] = useState<String>("N/A");
+
+  const { balanceOf, getSymbol } = useERC20Action(token);
   const account = useGetAccount();
 
   const getBalance = async () => {
@@ -131,6 +138,9 @@ export const useBalanceErc20 = (
 
   useEffect(() => {
     getBalance();
+    getSymbol().then((symbol: any) => {
+      setSymbol(symbol);
+    });
     let interval = setInterval(() => {
       if (address || account) {
         getBalance();
@@ -139,5 +149,5 @@ export const useBalanceErc20 = (
     return () => clearInterval(interval);
   }, [account, address]);
 
-  return { isFetching: disclosure.isOpen, balance, getBalance };
+  return { isFetching: disclosure.isOpen, balance, symbol, getBalance };
 };

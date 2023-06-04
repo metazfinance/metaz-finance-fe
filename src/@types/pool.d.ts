@@ -34,3 +34,10 @@ interface IPoolValidatorStake {
   totalStakedByAccount: number;
   totalReward: number;
 }
+
+interface IPoolLpStake {
+  balanceStaked: number;
+  reward: number;
+  isStakeable: boolean;
+  LPtotalStaked: number;
+}

@@ -25,6 +25,10 @@ const Links = [
     href: "/token",
   },
   {
+    name: "Stake LP",
+    href: "/stake-lp",
+  },
+  {
     name: "Lottery",
     href: "/lottery",
   },
@@ -130,6 +134,10 @@ export default function SNavbar() {
                   </Link>
                 );
               })}
+
+              <Link href={"https://docs.metaz.finance/"} target="_blank">
+                <Text fontSize={14}>Docs</Text>
+              </Link>
             </Stack>
           </Box>
         ) : null}

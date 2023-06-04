@@ -1,6 +1,5 @@
 import { handleError } from "@/utils/ultities";
 import { contractAddress } from "@/web3Config/contract";
-import { multicall } from "@/web3Config/multicall";
 import {
   StakingRewards__factory,
   StakingToValidator__factory,
