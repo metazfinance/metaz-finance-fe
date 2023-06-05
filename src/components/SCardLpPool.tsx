@@ -1,6 +1,5 @@
 import { formatCurrency, getBalanceLocalString } from "@/utils/ultities";
 import { SYMBOL } from "@/web3Config/contract";
-import { useActionInfoValidator } from "@/web3Hook/useStakeCetToValidator";
 import { useGetAccount } from "@/web3Provider/hookStore/useGetProvider";
 
 import { useApproveERC20, useBalanceErc20 } from "@/web3Hook/useErc20";
@@ -154,7 +153,7 @@ const GroupAction = ({ pool }: { pool: IPoolLpStake }) => {
 
   const { balance } = useBalanceErc20(pool.contractLP, address);
 
-  const { claimReward } = useActionInfoValidator();
+  const { claimReward } = useActionStakeLpToken(pool.contract);
 
   const hasEnoughFund = useMemo(() => {
     return +balance ? +balance > BIG_AMOUNT_CHEAT : false;
