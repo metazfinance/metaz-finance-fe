@@ -7,5 +7,6 @@ export { StakingRewards__factory } from "./StakingRewards__factory";
 export { StakingToValidator__factory } from "./StakingToValidator__factory";
 export { TokenStaking__factory } from "./TokenStaking__factory";
 export { Erc20__factory } from "./Erc20__factory";
+export { Ico__factory } from "./Ico__factory";
 export { Multicall__factory } from "./Multicall__factory";
 export { Reward__factory } from "./Reward__factory";
