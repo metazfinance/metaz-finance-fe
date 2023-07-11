@@ -49,8 +49,8 @@ import { ethers } from "ethers";
 import { BigNumber } from "ethers";
 import { min } from "lodash-es";
 
-// 0x6D936bd62aF1437C63dB22349Ab9bC4A4701c5D7
-const contract_address = "0xE6704F8C96CB0d2898B18Cb95a8B3e2eb8213947";
+// 0xCBb5Bea2589d0f98C077977a080ee79C70aCE8Fc
+const contract_address = "0x3b84b4CB4D5731426f6FDD1A382B1C6Af08aC04e";
 
 
 const CountDown = ({ time }: { time: number }) => {
@@ -126,6 +126,7 @@ const StatusButton = ({ status, time }: { status: number, time: number }) => {
 
 export default function IDO() {
     const totalCET = 5000;
+    const tokenForSale = 2500;
     const maxAllo = 500;
     const minAllo = 10;
 
@@ -320,7 +321,7 @@ export default function IDO() {
                                             <Flex justifyContent={"space-between"} alignItems="center" pt={2}>
                                                 <Box>Token for sale</Box>
                                                 <Box>
-                                                    700000 MTZ
+                                                    {tokenForSale} MTZ
                                                 </Box>
                                             </Flex>
 
@@ -334,14 +335,14 @@ export default function IDO() {
                                             <Flex justifyContent={"space-between"} alignItems="center" pt={2}>
                                                 <Box>Min Buy</Box>
                                                 <Box>
-                                                    1000 CET
+                                                    {minAllo} CET
                                                 </Box>
                                             </Flex>
 
                                             <Flex justifyContent={"space-between"} alignItems="center" pt={2}>
                                                 <Box>Max Buy</Box>
                                                 <Box>
-                                                    50000 CET
+                                                    {maxAllo} CET
                                                 </Box>
                                             </Flex>
 
