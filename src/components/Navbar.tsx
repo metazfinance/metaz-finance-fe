@@ -32,6 +32,10 @@ const Links = [
     name: "Lottery",
     href: "/lottery",
   },
+  {
+    name: "Launchpad",
+    href: "/ico",
+  },
 ];
 export default function SNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
