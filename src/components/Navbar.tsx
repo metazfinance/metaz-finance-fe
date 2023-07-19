@@ -34,7 +34,7 @@ const Links = [
   },
   {
     name: "Launchpad",
-    href: "/ico",
+    href: "/launchpad",
   },
 ];
 export default function SNavbar() {

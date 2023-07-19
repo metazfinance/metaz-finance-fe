@@ -50,7 +50,7 @@ import { BigNumber } from "ethers";
 import { min } from "lodash-es";
 
 // 0xCBb5Bea2589d0f98C077977a080ee79C70aCE8Fc
-const contract_address = "0x3b84b4CB4D5731426f6FDD1A382B1C6Af08aC04e";
+const contract_address = "0x2C6da84d7FD3495E80272F73b10964A407Fea5bf";
 
 
 const CountDown = ({ time }: { time: number }) => {
@@ -259,7 +259,7 @@ export default function IDO() {
             >
                 <Box>
                     <Text textAlign={"center"} fontSize={"3xl"} pb={2} fontWeight="bold">
-                        METAZ ICO
+                        METAZ Launchpad
                     </Text>
                     <Box>
                         <Flex
