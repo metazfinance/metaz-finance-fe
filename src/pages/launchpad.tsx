@@ -132,10 +132,10 @@ const StatusButton = ({ status, time }: { status: number, time: number }) => {
 
 
 export default function IDO() {
-    const totalCET = 5000;
-    const tokenForSale = 2500;
-    const maxAllo = 500;
-    const minAllo = 10;
+    const totalCET = 700000 * 2;
+    const tokenForSale = 700000;
+    const maxAllo = 50000;
+    const minAllo = 1000;
 
     const [isLoading, setIsLoading] = useState();
     const [input, setInput] = useState(0);
