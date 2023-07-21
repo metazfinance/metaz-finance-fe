@@ -24,10 +24,10 @@ const Links = [
     name: "Stake METAZ",
     href: "/token",
   },
-  {
-    name: "Stake LP",
-    href: "/stake-lp",
-  },
+  // {
+  //   name: "Stake LP",
+  //   href: "/stake-lp",
+  // },
   {
     name: "Lottery",
     href: "/lottery",

@@ -1,4 +1,4 @@
-export const CHAIN_ID = 53;
+export const CHAIN_ID = 52;
 
 // process.env.NEXT_PUBLIC_CHAIN_ID!;
 // || process.env.NEXT_PUBLIC_CHAIN_ID || 53;

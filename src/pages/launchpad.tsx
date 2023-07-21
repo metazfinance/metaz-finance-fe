@@ -45,12 +45,18 @@ import {
     useGetProvider,
     useGetSinger,
 } from "@/web3Provider/hookStore/useGetProvider";
+
+import AppBox from "@/components/AppBox";
+import { useValidatorService } from "@/services/validatorServices";
+
+
 import { ethers } from "ethers";
 import { BigNumber } from "ethers";
 import { min } from "lodash-es";
 
 // 0xCBb5Bea2589d0f98C077977a080ee79C70aCE8Fc
-const contract_address = "0x2C6da84d7FD3495E80272F73b10964A407Fea5bf";
+// 0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac mainnet
+const contract_address = "0x56AB0F4F17edB0F28653a8481B3ef24A830032Df";
 
 
 const CountDown = ({ time }: { time: number }) => {
@@ -97,7 +103,7 @@ const StatusButton = ({ status, time }: { status: number, time: number }) => {
     if (status == 0) return (
         <>
             <Button leftIcon={<InfoIcon />} colorScheme='orange' variant='solid'>
-                Up Coming
+                Start in 01/08/2023
             </Button>
         </>
     );
@@ -122,6 +128,7 @@ const StatusButton = ({ status, time }: { status: number, time: number }) => {
     )
 }
 
+// const Whitelist = 
 
 
 export default function IDO() {
@@ -144,7 +151,8 @@ export default function IDO() {
     const [userAmountForWithdrawl, setUserAmountForWithdrawl] = useState(0);
     const [userClaimed, setUserClaimed] = useState(0);
 
-    const provider = new ethers.providers.JsonRpcProvider("https://testnet-rpc.coinex.net");
+    // const provider = new ethers.providers.JsonRpcProvider("https://testnet-rpc.coinex.net");
+    const provider = new ethers.providers.JsonRpcProvider("https://rpc3.coinex.net");
     const contract_instance = new ethers.Contract(contract_address, abi, provider);
 
     async function queryData() {
@@ -241,10 +249,10 @@ export default function IDO() {
     }
 
     useEffect(() => {
-        queryData();
+        // queryData();
         const refetch = setInterval(() => {
-            queryData();
-            queryMaxAllo();
+            // queryData();
+            // queryMaxAllo();
         }, 2000);
         return () => clearInterval(refetch);
     })
