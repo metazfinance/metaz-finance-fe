@@ -24,7 +24,6 @@ import {
     ModalHeader,
     ModalOverlay,
     Skeleton,
-    Span,
     Progress,
     Text,
     useDisclosure,
