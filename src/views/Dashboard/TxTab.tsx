@@ -15,7 +15,7 @@ import {
 import { BigNumber } from "ethers";
 import React from "react";
 
-interface TxTabProps {}
+interface TxTabProps { }
 
 const TxTab = (props: TxTabProps) => {
   const { data, isLoading } = useValidatorService();
@@ -29,7 +29,7 @@ const TxTab = (props: TxTabProps) => {
       <Table variant="striped" colorScheme="teal">
         <Thead>
           <Tr>
-            <Th>Tx Hash</Th>
+            <Th>ID</Th>
             <Th>Delegator Address</Th>
             <Th>Amount (CET)</Th>
             <Th>TODAY REWARD ESTIMATION</Th>
