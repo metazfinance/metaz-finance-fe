@@ -1,16 +1,16 @@
-import { useGetCurrentLotteryInfo } from "@/web3Hook/useLottery";
+
 import { useGetCurrentLotteryInfo2 } from "@/web3Hook/useLotteryV2";
-import { AppEndDraw } from "@/components/AppEndDraw";
+import { AppEndDraw2 } from "@/components/AppEndDraw";
 import { SYMBOL } from "@/web3Config/contract";
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
-import LotteryLeaderBoard from "./LotteryLeaderBoard";
-import LotteryPoolHistory from "./LotteryPoolHistory";
+import LotteryLeaderBoard2 from "./LotteryLeaderBoardV2";
+import LotteryPoolHistory2 from "./LotteryPoolHistoryV2";
 import { useEffect } from "react";
 
-export default function LotteryView() {
-  const { isLoading, data } = useGetCurrentLotteryInfo();
+export default function LotteryViewV2() {
+  const { isLoading, data } = useGetCurrentLotteryInfo2();
 
   const img1Animation = useAnimation();
   const img2Animation = useAnimation();
@@ -74,7 +74,7 @@ export default function LotteryView() {
           }}
         >
           <motion.div
-            // animate={img1Animation}
+            animate={img1Animation}
             onMouseMove={(e) => handleMouseMove(e)}
           >
             <Box
@@ -111,7 +111,7 @@ export default function LotteryView() {
           </motion.div>
 
           <motion.div
-            // animate={img3Animation}
+            animate={img3Animation}
             onMouseMove={(e) => handleMouseMove(e)}
           >
             <Box
@@ -165,7 +165,7 @@ export default function LotteryView() {
           </motion.div>
 
           <motion.div
-            // animate={img3Animation}
+            animate={img3Animation}
             onMouseMove={(e) => handleMouseMove(e)}
           >
             <Box
@@ -202,7 +202,7 @@ export default function LotteryView() {
           </motion.div>
 
           <motion.div
-            // animate={img1Animation}
+            animate={img1Animation}
             onMouseMove={(e) => handleMouseMove(e)}
           >
             <Box
@@ -246,7 +246,7 @@ export default function LotteryView() {
                   {data?.totalReward / 1e18 || 0} {SYMBOL}
                 </Text>
                 {data && (
-                  <AppEndDraw
+                  <AppEndDraw2
                     blockEnd={data?.blockEnd}
                     blockStart={data?.blockStart}
                   />
@@ -256,9 +256,8 @@ export default function LotteryView() {
           </Box>
         </Flex>
       </Box>
-      <LotteryPoolHistory />
-      <LotteryLeaderBoard />
+      <LotteryPoolHistory2 />
+      <LotteryLeaderBoard2 />
     </Box>
   );
 }
-

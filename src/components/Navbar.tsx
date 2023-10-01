@@ -33,6 +33,10 @@ const Links = [
     href: "/lottery",
   },
   {
+    name: "Lottery V2",
+    href: "/lotteryV2",
+  },
+  {
     name: "Launchpad",
     href: "/launchpad",
   },
