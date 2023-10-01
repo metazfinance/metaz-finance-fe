@@ -257,7 +257,7 @@ export default function LotteryView() {
         </Flex>
       </Box>
       <LotteryPoolHistory />
-      <LotteryLeaderBoard />
+      {/* <LotteryLeaderBoard /> */}
     </Box>
   );
 }
