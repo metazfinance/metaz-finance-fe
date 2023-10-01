@@ -30,10 +30,10 @@ const Links = [
   // },
   {
     name: "Lottery",
-    href: "/lottery",
+    href: "/lotteryV1",
   },
   {
-    name: "Lottery V2",
+    name: "LotteryV2",
     href: "/lotteryV2",
   },
   {
