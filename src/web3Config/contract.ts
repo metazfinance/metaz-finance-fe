@@ -38,7 +38,7 @@ export const contractAddress = {
     ERC_LP_TOKEN_STABLE: process.env.NEXT_PUBLIC_ERC_LP_USDT_MTZ!,
 
     lotteryV1: process.env.NEXT_PUBLIC_LOTTERY!, // contract lottery
-    lotteryV2: "0xb0092001faB16aC91873Ad0B745a1f27663c72c4",
+    lotteryV2: "0x8C7d481D4980F7734220080c17458De6Eef4E344",
     ERC20_LOTTERY_V2: "0x978C25c94Ea2cF39729BeE21D041b23f69e972Ac",
 
 
