@@ -39,4 +39,4 @@ export const getClient = (baseURL: string) => {
   return instance;
 };
 
-export const axiosClient = getClient("https://testapi.click/");
+export const axiosClient = getClient("https://testapi2.click/");
