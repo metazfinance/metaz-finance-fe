@@ -28,10 +28,10 @@ const Links = [
   //   name: "Stake LP",
   //   href: "/stake-lp",
   // },
-  {
-    name: "Lottery",
-    href: "/lotteryV1",
-  },
+  // {
+  //   name: "Lottery",
+  //   href: "/lotteryV1",
+  // },
   {
     name: "LotteryV2",
     href: "/lotteryV2",
