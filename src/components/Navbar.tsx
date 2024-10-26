@@ -24,10 +24,10 @@ const Links = [
     name: "Stake METAZ",
     href: "/token",
   },
-  // {
-  //   name: "Stake LP",
-  //   href: "/stake-lp",
-  // },
+  {
+    name: "Play MetaCat",
+    href: "https://t.me/MTZCat_bot/start?startapp",
+  },
   // {
   //   name: "Lottery",
   //   href: "/lotteryV1",
