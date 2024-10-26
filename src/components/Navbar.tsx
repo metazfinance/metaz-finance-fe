@@ -24,10 +24,6 @@ const Links = [
     name: "Stake METAZ",
     href: "/token",
   },
-  {
-    name: "Play MetaCat",
-    href: "https://t.me/MTZCat_bot/start?startapp",
-  },
   // {
   //   name: "Lottery",
   //   href: "/lotteryV1",
@@ -39,6 +35,10 @@ const Links = [
   {
     name: "Launchpad",
     href: "/launchpad",
+  },
+  {
+    name: "Play MetaCat",
+    href: "https://t.me/MTZCat_bot/start?startapp",
   },
 ];
 export default function SNavbar() {
