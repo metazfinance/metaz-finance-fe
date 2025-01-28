@@ -16,30 +16,30 @@ import { useRouter } from "next/router";
 import SConnectButton from "./SConnectButton";
 
 const Links = [
-  {
-    name: "Stake CET",
-    href: "/validator",
-  },
-  {
-    name: "Stake METAZ",
-    href: "/token",
-  },
+  // {
+  //   name: "Stake CET",
+  //   href: "/validator",
+  // },
+  // {
+  //   name: "Stake METAZ",
+  //   href: "/token",
+  // },
   // {
   //   name: "Lottery",
   //   href: "/lotteryV1",
   // },
-  {
-    name: "LotteryV2",
-    href: "/lotteryV2",
-  },
-  {
-    name: "Launchpad",
-    href: "/launchpad",
-  },
-  {
-    name: "Play MetaCat",
-    href: "https://t.me/MTZCat_bot/start?startapp",
-  },
+  // {
+  //   name: "LotteryV2",
+  //   href: "/lotteryV2",
+  // },
+  // {
+  //   name: "Launchpad",
+  //   href: "/launchpad",
+  // },
+  // {
+  //   name: "Play MetaCat",
+  //   href: "https://t.me/MTZCat_bot/start?startapp",
+  // },
 ];
 export default function SNavbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
