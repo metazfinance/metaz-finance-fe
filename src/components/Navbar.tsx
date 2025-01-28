@@ -93,9 +93,9 @@ export default function SNavbar() {
                 );
               })}
 
-              <Link href={"https://docs.metaz.finance/"} target="_blank">
+{/*               <Link href={"https://docs.metaz.finance/"} target="_blank">
                 <Text fontSize={14}>Docs</Text>
-              </Link>
+              </Link> */}
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
